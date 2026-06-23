@@ -1,0 +1,90 @@
+/* ── Reset ── */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-dark);
+  color: #fff;
+  font-family: var(--font-poppins);
+  overflow-x: hidden;
+}
+
+/* ── Section backgrounds ── */
+.bg-dark-section { background: #0e0e0e; }
+.bg-dark-alt     { background: #0a0a0a; }
+.section-light   { background: #ffffff; }
+
+.core-values-bg { background: linear-gradient(180deg, #0e0e0e 0%, #080808 100%); }
+
+.cta-banner-bg {
+  background: linear-gradient(135deg, #0d0900 0%, #1a1000 50%, #0d0900 100%);
+}
+
+.cta-radial {
+  background: radial-gradient(ellipse at center, #C9A44A 0%, transparent 70%);
+}
+
+/* ── Image utility ── */
+.img-zoom {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.img-zoom:hover { transform: scale(1.05); }
+
+/* ── Progress bar ── */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-shine));
+  z-index: 9999;
+  transition: width 0.1s;
+}
+
+/* ── Floating WhatsApp ── */
+.float-wa {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.float-wa:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+}
+
+/* ── Keyframes ── */
+@keyframes scrollWheel {
+  0%   { opacity: 1; top: 6px; }
+  100% { opacity: 0; top: 20px; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+  .scroll-indicator .wheel { animation: none; }
+  .svc-photo-img, .svc-quicknav-link, .svc-cta-pill { transition: none; }
+  .svc-editorial:hover .svc-photo-img { transform: none; }
+}

@@ -1,0 +1,209 @@
+/* ══════════════════════════════════════════════════
+   HOME — light mode wrapper
+   ══════════════════════════════════════════════════ */
+.home-light { background: #ffffff; }
+
+/* Stat bar */
+.home-light .stat-bar {
+  background: rgba(201, 164, 74, 0.06);
+  border-top: 1px solid rgba(201, 164, 74, 0.25);
+  border-bottom: 1px solid rgba(201, 164, 74, 0.25);
+}
+.home-light .counter-val         { color: var(--color-gold-dark) !important; }
+.home-light .stat-bar .text-white\/50 { color: rgba(10, 10, 10, 0.55) !important; }
+
+/* Section backgrounds */
+.home-light .bg-dark-alt,
+.home-light .bg-dark-section,
+.home-light .core-values-bg,
+.home-light .cta-banner-bg { background: #ffffff !important; }
+
+.home-light .cta-radial {
+  background: radial-gradient(ellipse at center, rgba(201, 164, 74, 0.12) 0%, transparent 70%);
+}
+
+/* Headings */
+.home-light .section-title,
+.home-light h1,
+.home-light h2,
+.home-light h3 { color: #0A0A0A !important; }
+
+/* Hero overrides — keep white */
+.home-light .hero-content .section-title,
+.home-light .hero-title      { color: #ffffff !important; }
+.home-light .hero-brand-title { color: var(--color-gold) !important; }
+.home-light .hero-content .text-white,
+.home-light .hero-sub,
+.home-light .hero-eyebrow    { color: inherit !important; }
+
+.home-light .section-label { color: var(--color-gold-dark); }
+
+/* Text opacity utilities */
+.home-light .text-white\/70,
+.home-light .text-white\/60,
+.home-light .text-white\/50,
+.home-light .text-white\/40,
+.home-light .text-white\/30,
+.home-light .text-white\/20 { color: rgba(10, 10, 10, 0.65) !important; }
+.home-light .text-white     { color: #0A0A0A !important; }
+.home-light .card-info .text-white { color: #ffffff !important; }
+
+/* Cards */
+.home-light .service-card,
+.home-light .testimonial-card,
+.home-light .vision-mission-card,
+.home-light .pillar-card,
+.home-light .why-card {
+  background: #ffffff;
+  border: 1px solid rgba(201, 164, 74, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+.home-light .service-card:hover,
+.home-light .pillar-card:hover,
+.home-light .why-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 12px 40px rgba(201, 164, 74, 0.15);
+}
+.home-light .icon-wrap {
+  background: rgba(201, 164, 74, 0.1);
+  border: 1px solid rgba(201, 164, 74, 0.35);
+}
+.home-light .value-hex {
+  background: rgba(201, 164, 74, 0.06);
+  border: 1px solid rgba(201, 164, 74, 0.3);
+}
+.home-light .gold-border { border: 1px solid rgba(201, 164, 74, 0.5); }
+.home-light .why-icon,
+.home-light .why-icon-lg {
+  background: rgba(201, 164, 74, 0.08);
+  border: 1px solid rgba(201, 164, 74, 0.4);
+}
+.home-light .avatar-circle {
+  background: rgba(201, 164, 74, 0.15);
+  border: 1px solid rgba(201, 164, 74, 0.4);
+}
+
+/* Pillar / why CSS vars */
+.home-light .pillar-card,
+.home-light .why-card {
+  --pillar-title-color: #0a0a0a;
+  --pillar-sub-color:   rgba(10, 10, 10, 0.5);
+  --why-title-color:    #0a0a0a;
+  --why-desc-color:     rgba(10, 10, 10, 0.55);
+}
+
+/* Buttons */
+.home-light .btn-outline-gold {
+  color: var(--color-gold-dark);
+  border-color: rgba(201, 164, 74, 0.7);
+}
+.home-light .btn-outline-gold:hover { background: rgba(201, 164, 74, 0.08); }
+
+/* Filter buttons */
+.home-light .filter-btn {
+  border-color: rgba(10, 10, 10, 0.15);
+  color: rgba(10, 10, 10, 0.55);
+}
+.home-light .filter-btn:hover {
+  border-color: var(--color-gold-dark);
+  color: var(--color-gold-dark);
+}
+.home-light .filter-btn--active {
+  border-color: var(--color-gold-dark) !important;
+  color: var(--color-gold-dark) !important;
+}
+
+/* Sub item */
+.home-light .sub-item {
+  color: rgba(10, 10, 10, 0.6);
+  border-left-color: rgba(201, 164, 74, 0.3);
+}
+
+/* Misc */
+.home-light .marquee-img { opacity: 0.85; }
+
+/* Footer stays dark */
+.home-light footer { background: var(--color-dark-card) !important; }
+.home-light footer * { color: revert; }
+.home-light footer .text-white\/30,
+.home-light footer .text-white\/40,
+.home-light footer .text-white\/50 { color: rgba(255, 255, 255, 0.5) !important; }
+.home-light footer .footer-link,
+.home-light footer .info-value,
+.home-light footer a { color: rgba(255, 255, 255, 0.6) !important; }
+
+/* ── Pricing card: tetap dark di atas bg gelap ── */
+.home-light .pricing-card {
+  background: var(--color-dark-card) !important;
+  border-color: rgba(201, 164, 74, 0.2);
+}
+.home-light .pricing-card--highlight {
+  background: linear-gradient(180deg, rgba(201, 164, 74, 0.14) 0%, #111111 100%) !important;
+  border-color: var(--color-gold);
+}
+.home-light .pricing-card .section-title,
+.home-light .pricing-card h1,
+.home-light .pricing-card h2,
+.home-light .pricing-card h3,
+.home-light .pricing-card .text-white { color: #ffffff !important; }
+.home-light .pricing-card .text-white\/70,
+.home-light .pricing-card .text-white\/60,
+.home-light .pricing-card .text-white\/50,
+.home-light .pricing-card .text-white\/40 { color: rgba(255, 255, 255, 0.65) !important; }
+
+/* ── Agent card (light) ── */
+.home-light .agent-card {
+  background: #ffffff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+.home-light .agent-name  { color: #0a0a0a; }
+.home-light .agent-role  { color: rgba(10, 10, 10, 0.45); }
+.home-light .agent-price-label { color: rgba(10, 10, 10, 0.45); }
+.home-light .agent-note  { color: rgba(10, 10, 10, 0.4); }
+.home-light .btn-phone-outline {
+  color: rgba(10, 10, 10, 0.7);
+  border-color: rgba(10, 10, 10, 0.15);
+}
+
+/* ══════════════════════════════════════════════════
+   HOME — alternating section-dark
+   ══════════════════════════════════════════════════ */
+.home-light .section-dark { background: var(--color-dark) !important; }
+
+.home-light .section-dark .section-title,
+.home-light .section-dark h1,
+.home-light .section-dark h2,
+.home-light .section-dark h3 { color: #ffffff !important; }
+
+.home-light .section-dark .text-white\/70,
+.home-light .section-dark .text-white\/60,
+.home-light .section-dark .text-white\/50,
+.home-light .section-dark .text-white\/40,
+.home-light .section-dark .text-white\/30,
+.home-light .section-dark .text-white\/20 { color: rgba(255, 255, 255, 0.6) !important; }
+.home-light .section-dark .text-white     { color: #ffffff !important; }
+
+.home-light .section-dark .service-card,
+.home-light .section-dark .pillar-card,
+.home-light .section-dark .why-card,
+.home-light .section-dark .testimonial-card {
+  background: var(--color-dark-card);
+  border-color: rgba(201, 164, 74, 0.12);
+}
+.home-light .section-dark .pillar-card,
+.home-light .section-dark .why-card {
+  --pillar-title-color: #ffffff;
+  --pillar-sub-color:   rgba(255, 255, 255, 0.5);
+  --why-title-color:    #ffffff;
+  --why-desc-color:     rgba(255, 255, 255, 0.55);
+}
+.home-light .section-dark .filter-btn {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+}
+.home-light .section-dark .filter-btn:hover,
+.home-light .section-dark .filter-btn--active {
+  border-color: var(--color-gold) !important;
+  color: var(--color-gold) !important;
+}
+.home-light .section-dark .sub-item { color: rgba(255, 255, 255, 0.6); }

@@ -1,0 +1,17 @@
+@theme {
+  /* ── Warna brand: emas, hitam, putih ── */
+  --color-gold:       #C9A44A;
+  --color-gold-light: #E2BC6A;
+  --color-gold-dark:  #A07C2E;
+  --color-gold-shine: #F0D080;
+
+  /* ── Background ── */
+  --color-dark:         #0A0A0A;
+  --color-dark-card:    #111111;
+  --color-dark-section: #141414;
+  --color-dark-border:  #222222;
+
+  /* ── Font ── */
+  --font-poppins:    'Poppins', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}

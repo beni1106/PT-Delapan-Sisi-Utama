@@ -1,0 +1,92 @@
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #C9A44A, #E2BC6A);
+  color: #0A0A0A;
+  font-family: var(--font-montserrat);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 2px;
+  transition: all 0.3s;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, #E2BC6A, #F0D080);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201, 164, 74, 0.35);
+}
+
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--color-gold);
+  border: 1px solid rgba(201, 164, 74, 0.6);
+  font-family: var(--font-montserrat);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border-radius: 2px;
+  transition: all 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-outline-gold:hover {
+  background: rgba(201, 164, 74, 0.1);
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.btn-wa-solid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: #25D366;
+  color: #fff;
+  font-family: var(--font-montserrat);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 13px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+}
+.btn-wa-solid:hover {
+  background: #1fb855;
+  transform: translateY(-2px);
+}
+
+.btn-phone-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: var(--font-montserrat);
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-bottom: 14px;
+  transition: all 0.2s;
+}
+.btn-phone-outline:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
