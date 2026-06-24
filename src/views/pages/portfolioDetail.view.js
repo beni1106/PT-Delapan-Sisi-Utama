@@ -5,9 +5,17 @@
  * (project.title/location, display.propertyType/status/description)
  * belum bisa ikut toggle bahasa sampai model tersebut diubah jadi
  * { id, en } (model belum di-upload).
+ *
+ * PERUBAHAN (fix path gambar GitHub Pages):
+ * Semua src gambar carousel sekarang dibungkus withBase() dari
+ * portfolio.model.js, supaya path relative ('project/images/...')
+ * digabung dengan benar dengan BASE_URL hasil build Vite. Tanpa ini,
+ * browser akan resolve path relative terhadap URL halaman saat ini
+ * (portfolio-detail.html) bukan terhadap root domain — hasilnya 404.
  */
 
 import { t } from '../../models/i18n.model.js';
+import { withBase } from '../../models/portfolio.model.js';
 
 function hashSlug(slug) {
   let hash = 0;
@@ -76,7 +84,7 @@ function renderCarousel(project, display) {
     .map(
       (src, i) => `
     <div class="detail-carousel-slide ${i === 0 ? 'detail-carousel-slide--active' : ''}" data-slide-index="${i}">
-      <img src="${src}" alt="${project.title} — ${labels[i]}" loading="${i === 0 ? 'eager' : 'lazy'}" />
+      <img src="${withBase(src)}" alt="${project.title} — ${labels[i]}" loading="${i === 0 ? 'eager' : 'lazy'}" />
     </div>`
     )
     .join('');

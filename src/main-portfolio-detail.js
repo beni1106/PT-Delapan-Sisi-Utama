@@ -5,7 +5,7 @@
  * setelah DOM siap.
  */
 
-import '../src/styles/main.css';
+import './styles/main.css';
 import { initPortfolioDetailPage } from './controllers/portfolioDetail.controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
