@@ -154,14 +154,14 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
               ${renderIcon('user', 'w-4 h-4')}
             </a>
             <button type="button" class="nav-lang-toggle flex items-center gap-0 rounded border border-white/20 hover:border-gold/40 overflow-hidden transition-colors" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
-              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5 text-white">
+              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5">
                 <img src="${B}project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
-                <span class="text-xs font-montserrat font-600 tracking-wide">ID</span>
+                <span class="nav-lang-text">ID</span>
               </span>
               <span class="w-px h-4 bg-white/20 flex-shrink-0"></span>
-              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5 text-white">
+              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5">
                 <img src="${B}project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
-                <span class="text-xs font-montserrat font-600 tracking-wide">EN</span>
+                <span class="nav-lang-text">EN</span>
               </span>
             </button>
             <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener" class="btn-gold text-xs py-3 px-6 ml-2">

@@ -151,6 +151,31 @@
   background: rgba(201, 164, 74, 0.08);
 }
 
+/* ── Lang toggle text (force white, anti-konflik dengan CSS global lain) ── */
+.nav-lang-toggle {
+  color: #ffffff !important;
+  background: transparent;
+}
+.nav-lang-option {
+  color: #ffffff !important;
+}
+.nav-lang-text {
+  color: #ffffff !important;
+  font-family: var(--font-montserrat, var(--font-poppins));
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ── Hamburger (force white, anti-konflik dengan CSS global lain) ── */
+.hamburger-btn,
+.hamburger-btn svg,
+.hamburger-btn path,
+.hamburger-btn circle {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
 /* ── Mobile accordion ── */
 .mobile-nav-link {
   display: flex;
@@ -169,6 +194,8 @@
 .mobile-nav-chevron {
   transition: transform 0.25s ease;
   flex-shrink: 0;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
 }
 .mobile-nav-toggle.mobile-nav-toggle--open .mobile-nav-chevron {
   transform: rotate(180deg);
