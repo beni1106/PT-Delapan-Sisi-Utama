@@ -124,7 +124,6 @@
 
 /* Footer stays dark */
 .home-light footer { background: var(--color-dark-card) !important; }
-.home-light footer * { color: revert; }
 .home-light footer .text-white\/30,
 .home-light footer .text-white\/40,
 .home-light footer .text-white\/50 { color: rgba(255, 255, 255, 0.5) !important; }

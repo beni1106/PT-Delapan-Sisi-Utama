@@ -3,8 +3,6 @@
  * Navbar dengan dropdown multi-level, dipakai di semua halaman.
  * PERUBAHAN (i18n): getNavItems() (function, bukan const) + semua teks
  * statis memakai t() dari i18n.model.js.
- * FIX: teks toggle bahasa (ID/EN) dan ikon hamburger dipaksa selalu putih,
- * tidak lagi tergantung kondisi `lang` yang bisa tidak konsisten antar halaman.
  */
 
 import { renderIcon } from './icon.view.js';
@@ -53,17 +51,18 @@ function getNavItems() {
         { label: t('navbar.aboutCompanyInfo'), href: `${B}about.html#company-info` },
       ],
     },
-    {
-      key: 'info',
-      label: t('navbar.info'),
-      href: `${B}blog.html`,
-      children: [
-        { label: t('navbar.faq'),     href: `${B}faq.html` },
-        { label: t('navbar.istilah'), href: `${B}blog.html?cat=istilah` },
-        { label: t('navbar.blog'),    href: `${B}blog.html` },
-        { label: t('navbar.karir'),   href: `${B}karir.html` },
-      ],
-    },
+    // [HIDDEN] Menu Informasi — kode disimpan, tidak ditampilkan di navbar
+    // {
+    //   key: 'info',
+    //   label: t('navbar.info'),
+    //   href: `${B}blog.html`,
+    //   children: [
+    //     { label: t('navbar.faq'),     href: `${B}faq.html` },
+    //     { label: t('navbar.istilah'), href: `${B}blog.html?cat=istilah` },
+    //     { label: t('navbar.blog'),    href: `${B}blog.html` },
+    //     { label: t('navbar.karir'),   href: `${B}karir.html` },
+    //   ],
+    // },
     {
       key: 'contact',
       label: t('navbar.contact'),
@@ -142,7 +141,7 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
             />
           </a>
 
-          <div class="hidden lg:flex items-center gap-1" id="desktop-nav">
+          <div class="hidden lg:flex items-center gap-3" id="desktop-nav">
             <a href="${B}index.html" class="nav-home-icon" aria-label="${t('navbar.home')}">
               ${renderIcon('home', 'w-4 h-4')}
             </a>
@@ -150,18 +149,20 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
           </div>
 
           <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <!-- [HIDDEN] Tombol login/user icon — kode disimpan, tidak ditampilkan
             <a href="${B}admin-login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
               ${renderIcon('user', 'w-4 h-4')}
             </a>
+            -->
             <button type="button" class="nav-lang-toggle flex items-center gap-0 rounded border border-white/20 hover:border-gold/40 overflow-hidden transition-colors" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
-              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5">
+              <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'id' ? 'text-white' : 'text-white/35'}">
                 <img src="${B}project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
-                <span class="nav-lang-text">ID</span>
+                <span class="text-xs font-montserrat font-600 tracking-wide">ID</span>
               </span>
               <span class="w-px h-4 bg-white/20 flex-shrink-0"></span>
-              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5">
+              <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'en' ? 'text-white' : 'text-white/35'}">
                 <img src="${B}project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
-                <span class="nav-lang-text">EN</span>
+                <span class="text-xs font-montserrat font-600 tracking-wide">EN</span>
               </span>
             </button>
             <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener" class="btn-gold text-xs py-3 px-6 ml-2">
@@ -169,7 +170,7 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
             </a>
           </div>
 
-          <button id="hamburger" type="button" class="hamburger-btn lg:hidden text-white p-2" aria-label="Buka menu">
+          <button id="hamburger" class="lg:hidden text-white p-2" aria-label="Buka menu">
             ${renderIcon('menu', 'w-6 h-6')}
           </button>
         </div>

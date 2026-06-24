@@ -23,6 +23,7 @@
   letter-spacing: 0.03em;
   transition: color 0.3s;
   text-decoration: none;
+  padding: 8px 10px;
 }
 .nav-link::after {
   content: '';

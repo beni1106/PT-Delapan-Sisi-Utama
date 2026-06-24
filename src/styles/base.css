@@ -54,20 +54,21 @@ body {
   z-index: 999;
   width: 56px;
   height: 56px;
-  background: #25D366;
+  background: linear-gradient(135deg, #C9A44A, #E2BC6A);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 4px 20px rgba(201, 164, 74, 0.4);
   transition: all 0.3s;
   cursor: pointer;
   text-decoration: none;
 }
 .float-wa:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 8px 30px rgba(201, 164, 74, 0.5);
 }
+
 
 /* ── Keyframes ── */
 @keyframes scrollWheel {

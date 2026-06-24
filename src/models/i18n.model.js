@@ -54,17 +54,18 @@ const dict = {
     changeLang: { id: 'Ganti Bahasa', en: 'Change Language' },
   },
 
-  footer: {
-    tagline: { id: 'Building Excellence, Delivering Trust', en: 'Building Excellence, Delivering Trust' },
-    desc: {
-      id: 'Perusahaan Engineering, Construction, Property Development, dan Project Supervision yang berkomitmen menghadirkan solusi profesional dan berkelanjutan.',
-      en: 'An Engineering, Construction, Property Development, and Project Supervision company committed to delivering professional and sustainable solutions.',
-    },
-    navHeading: { id: 'Navigasi', en: 'Navigation' },
-    serviceHeading: { id: 'Layanan', en: 'Services' },
-    contactHeading: { id: 'Kontak', en: 'Contact' },
-    rights: { id: 'Hak Cipta Dilindungi.', en: 'All Rights Reserved.' },
+footer: {
+  tagline: { id: 'Building Excellence, Delivering Trust', en: 'Building Excellence, Delivering Trust' },
+  desc: {
+    id: 'Perusahaan Engineering, Construction, Property Development, dan Project Supervision yang berkomitmen menghadirkan solusi profesional dan berkelanjutan.',
+    en: 'An Engineering, Construction, Property Development, and Project Supervision company committed to delivering professional and sustainable solutions.',
   },
+  navHeading: { id: 'Navigasi', en: 'Navigation' },
+  serviceHeading: { id: 'Layanan', en: 'Services' },
+  contactHeading: { id: 'Kontak', en: 'Contact' },
+  socialHeading: { id: 'Media Sosial', en: 'Social Media' }, // ← tambahkan ini
+  rights: { id: 'Hak Cipta Dilindungi.', en: 'All Rights Reserved.' },
+},
 
   home: {
     eyebrow: { id: 'Building Excellence, Delivering Trust', en: 'Building Excellence, Delivering Trust' },
