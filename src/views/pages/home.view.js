@@ -14,7 +14,7 @@ export function renderHeroSection() {
     <section class="hero-section">
       <img
         class="hero-image-bg"
-        src="/project/images/banner.png"
+        src="project/images/banner.png"
         alt="PT. Delapan Sisi Utama — Engineering, Construction, Property Development"
         loading="eager"
       />
@@ -30,7 +30,7 @@ export function renderHeroSection() {
 
           <div class="hero-brand-lockup" id="hero-brand-lockup">
             <img
-              src="/project/images/logo-dsu.png"
+              src="project/images/logo-dsu.png"
               alt="Logo PT. Delapan Sisi Utama"
               class="hero-brand-logo"
               loading="eager"
@@ -97,7 +97,7 @@ export function renderAboutBrief({ leadership }) {
           <p class="text-white/60 font-poppins text-sm leading-8 mb-6 max-w-2xl mx-auto">${t('home.aboutP1')}</p>
           <p class="text-white/60 font-poppins text-sm leading-8 mb-10 max-w-2xl mx-auto">${t('home.aboutP2')}</p>
           <div class="grid grid-cols-2 gap-4 mb-10 max-w-md mx-auto">${leaderCards}</div>
-          <a href="/about.html" class="btn-outline-gold">${t('home.aboutMore')} ${renderIcon('arrow-right', 'w-4 h-4')}</a>
+          <a href="about.html" class="btn-outline-gold">${t('home.aboutMore')} ${renderIcon('arrow-right', 'w-4 h-4')}</a>
         </div>
       </div>
     </section>
@@ -135,7 +135,7 @@ export function renderPortfolioPreview(projects, categories) {
             <div class="section-label mb-4">${t('home.portfolioLabel')}</div>
             <h2 class="section-title">${t('home.portfolioTitleLine1')} <span class="text-gold-gradient">${t('home.portfolioTitleHighlight')}</span></h2>
           </div>
-          <a href="/portfolio.html" class="btn-outline-gold">${t('home.portfolioViewAll')}</a>
+          <a href="portfolio.html" class="btn-outline-gold">${t('home.portfolioViewAll')}</a>
         </div>
         <div class="flex flex-wrap gap-3 mb-10" data-aos="fade-up" data-aos-delay="100">${filterButtons}</div>
         <div class="portfolio-grid" id="portfolio-grid">${cards}</div>
@@ -198,8 +198,8 @@ export function renderWhyChooseUsSection(whyChooseUs) {
         </div>
         <div class="why-grid mb-16">${cards}</div>
         <div class="relative rounded-sm overflow-hidden gold-border max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-          <video class="w-full aspect-video object-cover" controls poster="/project/images/aster-hills/kantor-pemasaran.webp">
-             <source src="/project/videos/projects/aster-hills-drone.mp4" type="video/mp4" />
+          <video class="w-full aspect-video object-cover" controls poster="project/images/aster-hills/kantor-pemasaran.webp">
+             <source src="project/videos/projects/aster-hills-drone.mp4" type="video/mp4" />
           </video>
           <div class="video-badge">${t('home.companyProfileBadge')}</div>
         </div>
@@ -238,7 +238,7 @@ export function renderCtaBanner({ whatsapp }) {
           <a href="https://wa.me/${whatsapp}?text=${encodeURIComponent(t('home.ctaWhatsappMsg'))}" target="_blank" rel="noopener" class="btn-gold">
             ${renderIcon('whatsapp', 'w-5 h-5', true)} ${t('home.ctaWhatsapp')}
           </a>
-          <a href="/contact.html" class="btn-outline-gold">${t('home.ctaForm')}</a>
+          <a href="contact.html" class="btn-outline-gold">${t('home.ctaForm')}</a>
         </div>
       </div>
     </section>

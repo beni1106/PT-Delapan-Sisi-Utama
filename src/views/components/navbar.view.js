@@ -142,9 +142,9 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between h-20">
 
-          <a href="/index.html" class="flex items-center flex-shrink-0">
+          <a href="index.html" class="flex items-center flex-shrink-0">
             <img
-              src="/project/images/logo-dsu.png"
+              src="project/images/logo-dsu.png"
               alt="PT. Delapan Sisi Utama"
               class="h-14 w-auto object-contain"
               loading="eager"
@@ -152,7 +152,7 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
           </a>
 
           <div class="hidden lg:flex items-center gap-1" id="desktop-nav">
-            <a href="/index.html" class="nav-home-icon" aria-label="${t('navbar.home')}">
+            <a href="index.html" class="nav-home-icon" aria-label="${t('navbar.home')}">
               ${renderIcon('home', 'w-4 h-4')}
             </a>
             ${desktopItems}
@@ -160,17 +160,17 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
 
           <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
             <!-- ✅ UPDATED: redirect ke halaman login admin -->
-            <a href="/admin-login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
+            <a href="admin-login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
               ${renderIcon('user', 'w-4 h-4')}
             </a>
             <button type="button" class="nav-lang-toggle flex items-center gap-0 rounded border border-white/20 hover:border-gold/40 overflow-hidden transition-colors" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
               <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'id' ? 'text-white' : 'text-white/35'}">
-                <img src="/project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
+                <img src="project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
                 <span class="text-xs font-montserrat font-600 tracking-wide">ID</span>
               </span>
               <span class="w-px h-4 bg-white/20 flex-shrink-0"></span>
               <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'en' ? 'text-white' : 'text-white/35'}">
-                <img src="/project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
+                <img src="project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
                 <span class="text-xs font-montserrat font-600 tracking-wide">EN</span>
               </span>
             </button>
@@ -191,18 +191,18 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
 
       <div id="mobile-menu" class="mobile-menu">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
-          <a href="/index.html" class="nav-link mobile-nav-link">
+          <a href="index.html" class="nav-link mobile-nav-link">
             ${renderIcon('home', 'w-4 h-4')} ${t('navbar.home')}
           </a>
           ${mobileItems}
 
           <div class="mobile-nav-utility">
             <!-- ✅ UPDATED: redirect ke halaman login admin -->
-            <a href="/admin-login.html" class="nav-utility-link">${t('navbar.login')}</a>
+            <a href="admin-login.html" class="nav-utility-link">${t('navbar.login')}</a>
             <button type="button" class="nav-utility-link nav-lang-toggle flex items-center gap-2" data-lang="${lang}">
               ${lang === 'id'
-                ? `<img src="/project/images/flag/united-kingdom.png" alt="EN" class="w-6 h-4 object-cover rounded-sm" /> Switch to English`
-                : `<img src="/project/images/flag/indo.png" alt="ID" class="w-6 h-4 object-cover rounded-sm" /> Ganti ke Indonesia`
+                ? `<img src="project/images/flag/united-kingdom.png" alt="EN" class="w-6 h-4 object-cover rounded-sm" /> Switch to English`
+                : `<img src="project/images/flag/indo.png" alt="ID" class="w-6 h-4 object-cover rounded-sm" /> Ganti ke Indonesia`
               }
             </button>
           </div>

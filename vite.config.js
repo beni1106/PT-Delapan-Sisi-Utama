@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
 
-export default defineConfig({
-
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/PT-Delapan-Sisi-Utama/' : '/',
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
@@ -21,4 +21,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

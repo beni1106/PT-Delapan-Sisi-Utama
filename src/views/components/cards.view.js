@@ -18,7 +18,7 @@ export function renderServiceCard(service, { compact = false } = {}) {
         <div class="icon-wrap mb-5">${renderIcon(service.icon, 'w-6 h-6 text-gold')}</div>
         <h3 class="font-montserrat font-700 text-white text-base mb-3">${service.title}</h3>
         <p class="text-white/50 text-xs font-poppins leading-6 mb-5">${pick(service.summary)}</p>
-        <a href="/services.html#${service.id}" class="card-link">
+        <a href="services.html#${service.id}" class="card-link">
           ${t('cards.serviceMore')} ${renderIcon('arrow-right', 'w-3 h-3')}
         </a>
       </div>
@@ -63,7 +63,7 @@ export function renderPortfolioCard(project) {
     `;
 
   return `
-    <a href="/portfolio-detail.html?slug=${project.slug}" class="portfolio-card ${hasImage ? '' : 'portfolio-card--empty'}" data-category="${project.category}" data-aos="fade-up">
+    <a href="portfolio-detail.html?slug=${project.slug}" class="portfolio-card ${hasImage ? '' : 'portfolio-card--empty'}" data-category="${project.category}" data-aos="fade-up">
       ${media}
       <div class="overlay"></div>
       <div class="card-info">
@@ -130,7 +130,7 @@ export function renderPricingCard(plan, { formatIDR }) {
           )
           .join('')}
       </ul>
-      <a href="/contact.html" class="btn-dark w-full justify-center">${t('cards.pricingCta')}</a>
+      <a href="contact.html" class="btn-dark w-full justify-center">${t('cards.pricingCta')}</a>
     </div>
   `;
 }
@@ -138,7 +138,7 @@ export function renderPricingCard(plan, { formatIDR }) {
 /** Kartu artikel blog */
 export function renderBlogCard(post, { formatDateID }) {
   return `
-    <a href="/blog-detail.html?id=${post.id}" class="blog-card" data-aos="fade-up" rel="bookmark">
+    <a href="blog-detail.html?id=${post.id}" class="blog-card" data-aos="fade-up" rel="bookmark">
       <div class="blog-card-image">
         <img src="${post.image}" alt="${pick(post.title)}" loading="lazy" />
         <div class="blog-card-category">${pick(post.category)}</div>

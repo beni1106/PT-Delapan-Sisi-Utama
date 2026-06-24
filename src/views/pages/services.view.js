@@ -90,7 +90,7 @@ export function renderServiceDetailBlock(service, index) {
 
             <p class="svc-summary-dark">${pick(service.summary)}</p>
 
-            <a href="/contact.html?service=${service.id}" class="svc-cta-pill mt-6" aria-label="${t('services.ctaBtn')} ${service.title}">
+            <a href="contact.html?service=${service.id}" class="svc-cta-pill mt-6" aria-label="${t('services.ctaBtn')} ${service.title}">
               ${t('services.ctaBtn')}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -118,7 +118,7 @@ export function renderServicesCta({ whatsapp }) {
         <p class="font-poppins text-sm leading-8 mb-10 max-w-xl mx-auto" style="color:rgba(255,255,255,0.5);">${t('services.ctaDesc')}</p>
         <div class="flex flex-wrap gap-4 justify-center">
           <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener" class="btn-gold">${t('services.waBtn')}</a>
-          <a href="/contact.html" class="btn-outline-gold">${t('services.formBtn')}</a>
+          <a href="contact.html" class="btn-outline-gold">${t('services.formBtn')}</a>
         </div>
       </div>
     </section>

@@ -37,11 +37,11 @@ function getDisplayData(project) {
 function renderBreadcrumb(project) {
   return `
     <div class="detail-breadcrumb-row mb-6">
-      <a href="/portfolio.html" class="back-link-pill">${t('portfolioDetail.backLink')}</a>
+      <a href="portfolio.html" class="back-link-pill">${t('portfolioDetail.backLink')}</a>
       <div class="detail-breadcrumb">
-        <a href="/index.html">${t('portfolioDetail.breadcrumbHome')}</a>
+        <a href="index.html">${t('portfolioDetail.breadcrumbHome')}</a>
         <span>/</span>
-        <a href="/portfolio.html">${t('portfolioDetail.breadcrumbPortfolio')}</a>
+        <a href="portfolio.html">${t('portfolioDetail.breadcrumbPortfolio')}</a>
         <span>/</span>
         <span class="detail-breadcrumb-current">${project.title}</span>
       </div>
@@ -143,7 +143,7 @@ function renderContactSidebar(project, display, { companyInfo }) {
 
         <div class="agent-note">${t('portfolioDetail.note')}</div>
 
-        <a href="/portfolio.html" class="agent-other-link">${t('portfolioDetail.otherLink')}</a>
+        <a href="portfolio.html" class="agent-other-link">${t('portfolioDetail.otherLink')}</a>
       </div>
     </div>
   `;
@@ -254,7 +254,7 @@ export function renderPortfolioNotFound() {
         <div class="section-label mb-4">${t('portfolio.notFoundLabel')}</div>
         <h1 class="section-title mb-6">${t('portfolio.notFoundTitleLine1')} <span class="text-gold-gradient">${t('portfolio.notFoundTitleHighlight')}</span></h1>
         <p class="text-white/50 font-poppins text-sm leading-7 mb-10">${t('portfolio.notFoundDesc')}</p>
-        <a href="/portfolio.html" class="btn-gold">${t('portfolio.backBtn')}</a>
+        <a href="portfolio.html" class="btn-gold">${t('portfolio.backBtn')}</a>
       </div>
     </section>
   `;

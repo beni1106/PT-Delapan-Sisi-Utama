@@ -46,7 +46,7 @@ function renderPricingCard(plan, { formatIDR }) {
       <ul class="space-y-3 mb-8">${featureList}</ul>
 
       <a
-        href="/contact.html?paket=${plan.id}"
+        href="contact.html?paket=${plan.id}"
         class="${plan.highlighted ? 'btn-gold' : 'btn-outline-gold'} w-full justify-center text-center"
         style="display:flex;"
       >
@@ -127,7 +127,7 @@ export function renderPricingCta({ whatsapp }) {
         <p class="font-poppins text-sm leading-8 mb-10 max-w-xl mx-auto" style="color:rgba(255,255,255,0.5);">${t('pricing.ctaDesc')}</p>
         <div class="flex flex-wrap gap-4 justify-center">
           <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener" class="btn-gold">${t('pricing.waBtn')}</a>
-          <a href="/contact.html" class="btn-outline-gold">${t('pricing.formBtn')}</a>
+          <a href="contact.html" class="btn-outline-gold">${t('pricing.formBtn')}</a>
         </div>
       </div>
     </section>
