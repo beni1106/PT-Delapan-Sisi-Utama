@@ -1,19 +1,12 @@
 /**
- * animations.js
- * UTILS — Helper DOM & animasi yang dipakai berulang oleh banyak Controller.
- *
- * PERUBAHAN (i18n):
- * - initLangToggle() tidak lagi memanipulasi DOM tombol secara manual.
- *   Sekarang cuma memanggil toggleLang() dari utils/language.js, yang akan
- *   update localStorage + <html lang> + dispatch event 'dsu:langchange'.
- *   Controller yang mendengarkan event itu akan render ulang navbar dengan
- *   label & data-lang yang sudah benar otomatis.
+ * animations.js — UTILS
+ * Helper DOM & animasi yang dipakai berulang oleh banyak Controller.
+ * PERUBAHAN (i18n): initLangToggle() delegasi penuh ke toggleLang().
  */
 
 import { gsap } from 'gsap';
 import { toggleLang } from './language.js';
 
-/** Navbar berubah background saat discroll melewati threshold */
 export function initStickyNavbar(threshold = 60) {
   const navbar = document.getElementById('navbar');
   if (!navbar) return;
@@ -25,7 +18,6 @@ export function initStickyNavbar(threshold = 60) {
   onScroll();
 }
 
-/** Toggle menu mobile (hamburger) */
 export function initMobileMenu() {
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('mobile-menu');
@@ -36,7 +28,6 @@ export function initMobileMenu() {
   });
 }
 
-/** Progress bar tipis di top viewport mengikuti posisi scroll halaman */
 export function initScrollProgress() {
   const bar = document.getElementById('progress-bar');
   if (!bar) return;
@@ -50,9 +41,6 @@ export function initScrollProgress() {
   onScroll();
 }
 
-/**
- * Animasi counter naik dari 0 ke target, dipicu saat elemen masuk viewport.
- */
 export function initCounters(selector = '.counter-val') {
   const counters = document.querySelectorAll(selector);
   if (!counters.length) return;
@@ -85,7 +73,6 @@ export function initCounters(selector = '.counter-val') {
   counters.forEach((c) => observer.observe(c));
 }
 
-/** Fade-up generik dengan GSAP */
 export function fadeUp(selector, vars = {}) {
   gsap.from(selector, {
     opacity: 0,
@@ -96,7 +83,6 @@ export function fadeUp(selector, vars = {}) {
   });
 }
 
-/** Accordion submenu di mobile menu */
 export function initMobileNavAccordion() {
   const toggles = document.querySelectorAll('[data-mobile-toggle]');
 
@@ -123,19 +109,6 @@ export function initMobileNavAccordion() {
   });
 }
 
-/**
- * Dropdown desktop dengan hover delay — MENGGANTIKAN pure CSS :hover.
- *
- * Cara kerja:
- * - Saat mouseenter ke .nav-item → buka dropdown langsung (openDelay: 0)
- * - Saat mouseleave dari .nav-item → tunggu closeDelay ms sebelum tutup
- *   Jika dalam waktu itu cursor masuk ke panel dropdown, timer dibatalkan.
- * - Ini mencegah dropdown langsung tutup saat cursor bergerak diagonal
- *   dari link trigger ke panel dropdown di bawahnya.
- *
- * CSS .nav-item:hover .nav-dropdown HARUS dihapus / tidak dipakai lagi
- * karena kita kontrol sepenuhnya lewat JS + class .nav-dropdown--open.
- */
 export function initDropdownHover(closeDelay = 150) {
   const navItems = document.querySelectorAll('[data-nav-item]');
 
@@ -147,7 +120,6 @@ export function initDropdownHover(closeDelay = 150) {
     let closeTimer = null;
 
     const open = () => {
-      // Tutup semua dropdown lain
       document.querySelectorAll('.nav-dropdown--open').forEach((el) => {
         if (el !== dropdown) el.classList.remove('nav-dropdown--open');
       });
@@ -171,16 +143,13 @@ export function initDropdownHover(closeDelay = 150) {
       clearTimeout(closeTimer);
     };
 
-    // Hover pada .nav-item (trigger area)
     item.addEventListener('mouseenter', open);
     item.addEventListener('mouseleave', scheduleClose);
 
-    // Hover pada panel dropdown itu sendiri — batalkan timer tutup
     dropdown.addEventListener('mouseenter', cancelClose);
     dropdown.addEventListener('mouseleave', scheduleClose);
   });
 
-  // Klik di luar navbar → tutup semua dropdown
   document.addEventListener('click', (e) => {
     if (!e.target.closest('#desktop-nav')) {
       document.querySelectorAll('.nav-dropdown--open').forEach((el) => {
@@ -195,9 +164,8 @@ export function initDropdownHover(closeDelay = 150) {
 
 /**
  * Toggle bahasa ID/EN — delegasi penuh ke utils/language.js.
- * toggleLang() akan update localStorage, atribut <html lang>, dan
- * dispatch event 'dsu:langchange' yang didengarkan oleh setiap Controller
- * untuk me-render ulang halaman dengan teks bahasa baru.
+ * toggleLang() update localStorage, <html lang>, dan dispatch event
+ * 'dsu:langchange' yang didengarkan tiap Controller untuk render ulang.
  */
 export function initLangToggle() {
   document.querySelectorAll('.nav-lang-toggle').forEach((btn) => {

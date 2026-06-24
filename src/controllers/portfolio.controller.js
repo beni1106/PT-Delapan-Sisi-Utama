@@ -1,18 +1,8 @@
 /**
- * portfolio.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman Portfolio.
- *
- * PERUBAHAN:
- * - document.body.classList.add('home-light') tetap ada — skema warna
- *   terang + pola section selang-seling sama dengan Home.
- * - initPortfolioFilter() diganti total: tombol filter sekarang ANCHOR,
- *   klik = smooth-scroll ke section kategori terkait (#category-<key>),
- *   bukan show/hide kartu seperti sebelumnya (karena tampilan grid
- *   sekarang sudah dikelompokkan per kategori secara permanen, lihat
- *   portfolio.view.js).
- * - Tambah initCategoryScrollSpy(): IntersectionObserver yang otomatis
- *   meng-highlight tombol filter sesuai section kategori mana yang
- *   sedang terlihat di viewport saat user scroll manual.
+ * portfolio.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; listener
+ * 'dsu:langchange' me-render ulang halaman + pasang ulang semua listener
+ * filter/scrollspy (karena DOM dibuat ulang dari nol saat re-render).
  */
 
 import AOS from 'aos';
@@ -27,7 +17,8 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderPortfolioHero, renderPortfolioGridSection } from '../views/pages/portfolio.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
 
 function renderPage() {
   const app = document.querySelector('#app');
@@ -36,7 +27,7 @@ function renderPage() {
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'portfolio', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'portfolio', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${renderPortfolioHero()}
     ${renderPortfolioGridSection(portfolioProjects, portfolioCategories)}
     ${renderFooter({ companyInfo })}
@@ -44,11 +35,9 @@ function renderPage() {
   `;
 }
 
-/** Tinggi navbar fixed, dipakai sebagai offset supaya section tidak ketutup navbar saat discroll-ke */
 const SCROLL_OFFSET = 100;
 
 function scrollToCategory(key) {
-  // 'all' → scroll ke section kategori pertama (paling atas dari grid)
   const targetId = key === 'all' ? document.querySelector('.portfolio-category-section')?.id : `category-${key}`;
   if (!targetId) return;
 
@@ -71,7 +60,6 @@ function initPortfolioFilter() {
   });
 }
 
-/** Highlight tombol filter otomatis mengikuti section kategori yang sedang terlihat */
 function initCategoryScrollSpy() {
   const sections = document.querySelectorAll('.portfolio-category-section');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -93,7 +81,6 @@ function initCategoryScrollSpy() {
   sections.forEach((section) => observer.observe(section));
 }
 
-/** Jika diakses dengan ?category=perumahan, langsung scroll ke kategori itu setelah render */
 function applyInitialFilterFromQuery() {
   const params = new URLSearchParams(window.location.search);
   const category = params.get('category');
@@ -101,20 +88,30 @@ function applyInitialFilterFromQuery() {
 
   const targetBtn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
   if (targetBtn) {
-    // Delay singkat supaya layout (termasuk gambar) sudah settle sebelum scroll dihitung
     setTimeout(() => targetBtn.click(), 150);
   }
 }
 
-export function initPortfolioPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileMenu();
   initMobileNavAccordion();
   initLangToggle();
   initScrollProgress();
+  initDropdownHover();
   initPortfolioFilter();
   initCategoryScrollSpy();
+}
+
+export function initPortfolioPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
   applyInitialFilterFromQuery();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }

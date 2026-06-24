@@ -1,6 +1,7 @@
 /**
- * blog.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman Blog.
+ * blog.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; listener
+ * 'dsu:langchange' me-render ulang seluruh halaman saat bahasa diganti.
  */
 
 import AOS from 'aos';
@@ -15,7 +16,8 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderBlogHero, renderBlogGrid } from '../views/pages/blog.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
 
 function renderPage() {
   const app = document.querySelector('#app');
@@ -23,7 +25,7 @@ function renderPage() {
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'blog', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'blog', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${renderBlogHero()}
     ${renderBlogGrid(blogPosts, { formatDateID })}
     ${renderFooter({ companyInfo })}
@@ -31,12 +33,23 @@ function renderPage() {
   `;
 }
 
-export function initBlogPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileMenu();
   initMobileNavAccordion();
   initLangToggle();
   initScrollProgress();
+  initDropdownHover();
+}
+
+export function initBlogPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }

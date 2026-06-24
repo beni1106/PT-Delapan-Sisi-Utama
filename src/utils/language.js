@@ -1,6 +1,6 @@
 /**
- * language.js
- * UTILS — menyimpan & membaca preferensi bahasa user, broadcast saat berubah.
+ * language.js — UTILS
+ * Menyimpan & membaca preferensi bahasa user, broadcast saat berubah.
  */
 
 const STORAGE_KEY = 'dsu_lang';

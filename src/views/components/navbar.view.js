@@ -1,11 +1,8 @@
 /**
- * navbar.view.js
- * VIEW LAYER — Navbar dengan dropdown multi-level, dipakai di semua halaman.
- *
- * PERUBAHAN (i18n):
- * - NAV_ITEMS (const statis) -> getNavItems() (function), karena label
- *   sekarang tergantung bahasa aktif lewat t() dari i18n.model.js.
- * - Semua teks statis (aria-label, label tombol) memakai t().
+ * navbar.view.js — VIEW LAYER
+ * Navbar dengan dropdown multi-level, dipakai di semua halaman.
+ * PERUBAHAN (i18n): getNavItems() (function, bukan const) + semua teks
+ * statis memakai t() dari i18n.model.js.
  */
 
 import { renderIcon } from './icon.view.js';
@@ -27,17 +24,18 @@ function getNavItems() {
         { label: t('navbar.catEngineering'), href: '/portfolio.html?category=engineering-supervision' },
       ],
     },
-    {
-      key: 'vr-video',
-      label: t('navbar.vrVideo'),
-      href: '/vr-video.html',
-      children: [
-        { label: t('navbar.vr360'), href: '/vr-video.html#vr' },
-        { label: t('navbar.video3d'), href: '/vr-video.html#video-3d' },
-        { label: t('navbar.videoKonstruksi'), href: '/vr-video.html#video-konstruksi' },
-        { label: t('navbar.videoProgress'), href: '/vr-video.html#video-progress' },
-      ],
-    },
+    // vr-video dinonaktifkan sementara
+    // {
+    //   key: 'vr-video',
+    //   label: t('navbar.vrVideo'),
+    //   href: '/vr-video.html',
+    //   children: [
+    //     { label: t('navbar.vr360'), href: '/vr-video.html#vr' },
+    //     { label: t('navbar.video3d'), href: '/vr-video.html#video-3d' },
+    //     { label: t('navbar.videoKonstruksi'), href: '/vr-video.html#video-konstruksi' },
+    //     { label: t('navbar.videoProgress'), href: '/vr-video.html#video-progress' },
+    //   ],
+    // },
     {
       key: 'pricing',
       label: t('navbar.pricing'),
@@ -56,11 +54,11 @@ function getNavItems() {
       label: t('navbar.about'),
       href: '/about.html',
       children: [
-        { label: t('navbar.aboutProfil'), href: '/about.html#profil' },
-        { label: t('navbar.aboutTim'), href: '/about.html#tim' },
-        { label: t('navbar.aboutVisiMisi'), href: '/about.html#visi-misi' },
-        { label: t('navbar.aboutPilar'), href: '/about.html#pilar' },
-        { label: t('navbar.aboutGaleri'), href: '/about.html#galeri' },
+        { label: t('navbar.aboutProfil'),    href: '/about.html#profil' },
+        { label: t('navbar.aboutTim'),       href: '/about.html#tim' },
+        { label: t('navbar.aboutVisiMisi'),  href: '/about.html#visi-misi' },
+        { label: t('navbar.aboutPilar'),     href: '/about.html#pilar' },
+        { label: t('navbar.aboutCompanyInfo'), href: '/about.html#company-info' },
       ],
     },
     {
@@ -68,10 +66,10 @@ function getNavItems() {
       label: t('navbar.info'),
       href: '/blog.html',
       children: [
-        { label: t('navbar.faq'), href: '/faq.html' },
+        { label: t('navbar.faq'),     href: '/faq.html' },
         { label: t('navbar.istilah'), href: '/blog.html?cat=istilah' },
-        { label: t('navbar.blog'), href: '/blog.html' },
-        { label: t('navbar.karir'), href: '/karir.html' },
+        { label: t('navbar.blog'),    href: '/blog.html' },
+        { label: t('navbar.karir'),   href: '/karir.html' },
       ],
     },
     {
@@ -144,7 +142,6 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between h-20">
 
-          <!-- LOGO -->
           <a href="/index.html" class="flex items-center flex-shrink-0">
             <img
               src="/project/images/logo-dsu.png"
@@ -154,7 +151,6 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
             />
           </a>
 
-          <!-- DESKTOP NAV -->
           <div class="hidden lg:flex items-center gap-1" id="desktop-nav">
             <a href="/index.html" class="nav-home-icon" aria-label="${t('navbar.home')}">
               ${renderIcon('home', 'w-4 h-4')}
@@ -162,30 +158,37 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
             ${desktopItems}
           </div>
 
-          <!-- RIGHT ICONS -->
           <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
-            <a href="/login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
+            <!-- ✅ UPDATED: redirect ke halaman login admin -->
+            <a href="/admin-login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
               ${renderIcon('user', 'w-4 h-4')}
             </a>
-            <button type="button" class="nav-icon-btn nav-lang-toggle" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
-              ${langLabel}
+            <button type="button" class="nav-lang-toggle flex items-center gap-0 rounded border border-white/20 hover:border-gold/40 overflow-hidden transition-colors" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
+              <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'id' ? 'text-white' : 'text-white/35'}">
+                <img src="/project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
+                <span class="text-xs font-montserrat font-600 tracking-wide">ID</span>
+              </span>
+              <span class="w-px h-4 bg-white/20 flex-shrink-0"></span>
+              <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'en' ? 'text-white' : 'text-white/35'}">
+                <img src="/project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
+                <span class="text-xs font-montserrat font-600 tracking-wide">EN</span>
+              </span>
             </button>
-            <button type="button" class="nav-icon-btn" aria-label="${t('navbar.search')}" id="search-toggle">
+            <!-- search dinonaktifkan sementara -->
+            <!-- <button type="button" class="nav-icon-btn" aria-label="${t('navbar.search')}" id="search-toggle">
               ${renderIcon('search', 'w-4 h-4')}
-            </button>
+            </button> -->
             <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener" class="btn-gold text-xs py-3 px-6 ml-2">
               ${t('navbar.consult')}
             </a>
           </div>
 
-          <!-- HAMBURGER -->
           <button id="hamburger" class="lg:hidden text-white p-2" aria-label="Buka menu">
             ${renderIcon('menu', 'w-6 h-6')}
           </button>
         </div>
       </div>
 
-      <!-- MOBILE MENU -->
       <div id="mobile-menu" class="mobile-menu">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
           <a href="/index.html" class="nav-link mobile-nav-link">
@@ -194,9 +197,13 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
           ${mobileItems}
 
           <div class="mobile-nav-utility">
-            <a href="/login.html" class="nav-utility-link">${t('navbar.login')}</a>
-            <button type="button" class="nav-utility-link nav-lang-toggle" data-lang="${lang}">
-              ${langLabel} — ${t('navbar.changeLang')}
+            <!-- ✅ UPDATED: redirect ke halaman login admin -->
+            <a href="/admin-login.html" class="nav-utility-link">${t('navbar.login')}</a>
+            <button type="button" class="nav-utility-link nav-lang-toggle flex items-center gap-2" data-lang="${lang}">
+              ${lang === 'id'
+                ? `<img src="/project/images/flag/united-kingdom.png" alt="EN" class="w-6 h-4 object-cover rounded-sm" /> Switch to English`
+                : `<img src="/project/images/flag/indo.png" alt="ID" class="w-6 h-4 object-cover rounded-sm" /> Ganti ke Indonesia`
+              }
             </button>
           </div>
 

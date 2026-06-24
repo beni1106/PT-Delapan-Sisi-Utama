@@ -1,7 +1,8 @@
 /**
- * blogDetail.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman detail artikel blog.
- * Membaca query param `?id=` untuk menentukan artikel mana yang ditampilkan.
+ * blogDetail.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; document.title
+ * memakai judul sesuai bahasa aktif (pick); listener 'dsu:langchange'
+ * me-render ulang halaman.
  */
 
 import AOS from 'aos';
@@ -16,7 +17,9 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderBlogDetailHero, renderBlogDetailBody, renderBlogNotFound } from '../views/pages/blogDetail.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
+import { pick } from '../models/i18n.model.js';
 
 function getPostIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -35,24 +38,35 @@ function renderPage() {
     : renderBlogNotFound();
 
   if (post) {
-    document.title = `${post.title} – PT. Delapan Sisi Utama`;
+    document.title = `${pick(post.title)} – PT. Delapan Sisi Utama`;
   }
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'blog', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'blog', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${bodyHtml}
     ${renderFooter({ companyInfo })}
     ${renderFloatingWhatsapp({ whatsapp: companyInfo.whatsapp })}
   `;
 }
 
-export function initBlogDetailPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileNavAccordion();
   initLangToggle();
   initMobileMenu();
   initScrollProgress();
+  initDropdownHover();
+}
+
+export function initBlogDetailPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }

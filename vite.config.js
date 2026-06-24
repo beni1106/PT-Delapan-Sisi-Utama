@@ -18,6 +18,7 @@ export default defineConfig({
         blog: resolve(__dirname, 'blog.html'),
         blogDetail: resolve(__dirname, 'blog-detail.html'),
         contact: resolve(__dirname, 'contact.html'),
+        adminLogin:     resolve(__dirname, 'admin-login.html')
       },
     },
   },

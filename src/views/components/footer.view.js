@@ -1,32 +1,37 @@
 /**
  * footer.view.js
  * VIEW LAYER — Footer, dipakai di semua halaman.
- *
  * PERUBAHAN (i18n): semua teks statis memakai t() dari i18n.model.js.
  */
 
 import { renderIcon } from './icon.view.js';
 import { t } from '../../models/i18n.model.js';
 
-/**
- * @param {Object} opts
- * @param {Object} opts.companyInfo - dari models/company.model.js
- */
 export function renderFooter({ companyInfo }) {
   return `
     <footer class="bg-dark-card border-t border-gold/10">
       <div class="max-w-7xl mx-auto px-6 py-16">
         <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-10">
 
-          <div class="lg:col-span-1">
-            <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 bg-gold/10 border border-gold/30 rounded-sm flex items-center justify-center font-montserrat font-900 text-gold text-lg">DSU</div>
+          <!-- Kolom 1: Brand -->
+          <div class="lg:col-span-1 flex flex-col">
+            <div class="flex items-center gap-3 mb-4">
+              <img
+                src="/project/images/logo-dsu.png"
+                alt="PT. Delapan Sisi Utama"
+                class="h-10 w-auto object-contain flex-shrink-0"
+                loading="lazy"
+              />
               <div>
                 <div class="font-montserrat font-700 text-white text-sm leading-tight">PT. DELAPAN SISI UTAMA</div>
-                <div class="text-gold/60 text-xs font-poppins">${t('footer.tagline')}</div>
+                <div class="text-gold/60 text-xs font-poppins mt-0.5">${t('footer.tagline')}</div>
               </div>
             </div>
-            <p class="text-white/40 text-xs font-poppins leading-7 mb-6">${t('footer.desc')}</p>
+
+            <div class="w-8 h-px bg-gold/30 mb-4"></div>
+
+            <p class="text-white/40 text-xs font-poppins leading-7 mb-6 flex-1">${t('footer.desc')}</p>
+
             <div class="flex gap-3">
               <a href="https://wa.me/${companyInfo.whatsapp}" target="_blank" rel="noopener" class="social-icon">
                 ${renderIcon('whatsapp', 'w-4 h-4', true)}
@@ -34,12 +39,13 @@ export function renderFooter({ companyInfo }) {
             </div>
           </div>
 
+          <!-- Kolom 2: Navigation -->
           <div>
             <h4 class="footer-heading">${t('footer.navHeading')}</h4>
             <ul class="space-y-3">
               <li><a href="/index.html" class="footer-link">${t('navbar.home')}</a></li>
               <li><a href="/about.html" class="footer-link">${t('navbar.about')}</a></li>
-              <li><a href="/services.html" class="footer-link">${t('navbar.pricing')}</a></li>
+              <li><a href="/services.html" class="footer-link">${t('navbar.services')}</a></li>
               <li><a href="/portfolio.html" class="footer-link">${t('navbar.portfolio')}</a></li>
               <li><a href="/pricing.html" class="footer-link">${t('navbar.pricing')}</a></li>
               <li><a href="/blog.html" class="footer-link">${t('navbar.blog')}</a></li>
@@ -47,6 +53,7 @@ export function renderFooter({ companyInfo }) {
             </ul>
           </div>
 
+          <!-- Kolom 3: Services -->
           <div>
             <h4 class="footer-heading">${t('footer.serviceHeading')}</h4>
             <ul class="space-y-3">
@@ -57,6 +64,7 @@ export function renderFooter({ companyInfo }) {
             </ul>
           </div>
 
+          <!-- Kolom 4: Contact -->
           <div>
             <h4 class="footer-heading">${t('footer.contactHeading')}</h4>
             <ul class="space-y-4">
@@ -69,21 +77,29 @@ export function renderFooter({ companyInfo }) {
                 <a href="tel:${companyInfo.phone1.replace(/\s/g, '')}" class="footer-link">${companyInfo.phone1}</a>
               </li>
               <li class="flex gap-3 items-center">
+                ${renderIcon('phone', 'w-4 h-4 text-gold flex-shrink-0')}
+                <a href="tel:${companyInfo.phone2.replace(/\s/g, '')}" class="footer-link">${companyInfo.phone2}</a>
+              </li>
+              <li class="flex gap-3 items-center">
                 ${renderIcon('mail', 'w-4 h-4 text-gold flex-shrink-0')}
                 <a href="mailto:${companyInfo.email}" class="footer-link">${companyInfo.email}</a>
               </li>
               <li class="flex gap-3 items-center">
                 ${renderIcon('globe', 'w-4 h-4 text-gold flex-shrink-0')}
-                <a href="https://${companyInfo.website}" class="footer-link">${companyInfo.website}</a>
+                <a href="https://${companyInfo.website}" target="_blank" rel="noopener" class="footer-link">${companyInfo.website}</a>
               </li>
             </ul>
           </div>
+
         </div>
       </div>
 
+      <!-- Bottom Bar -->
       <div class="border-t border-white/5 py-6">
         <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
-          <p class="text-white/30 text-xs font-poppins">&copy; ${new Date().getFullYear()} PT. Delapan Sisi Utama. ${t('footer.rights')}</p>
+          <p class="text-white/30 text-xs font-poppins">
+            &copy; ${new Date().getFullYear()} PT. Delapan Sisi Utama. ${t('footer.rights')}
+          </p>
           <p class="text-white/20 text-xs font-poppins">${t('footer.tagline')}</p>
         </div>
       </div>

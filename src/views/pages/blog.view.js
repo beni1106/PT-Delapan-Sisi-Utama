@@ -1,22 +1,20 @@
 /**
- * blog.view.js
- * VIEW LAYER — Menyusun seluruh section halaman Blog.
+ * blog.view.js — VIEW LAYER
+ * PERUBAHAN (i18n): teks statis memakai t().
  */
 
 import { renderBlogCard } from '../components/cards.view.js';
+import { t } from '../../models/i18n.model.js';
 
 export function renderBlogHero() {
   return `
     <section class="pt-32 pb-16 relative overflow-hidden services-hero-bg">
       <div class="absolute inset-0 opacity-5 services-hero-radial"></div>
       <div class="max-w-7xl mx-auto px-6 relative z-10" data-aos="fade-up">
-        <div class="section-label mb-4">Blog & Artikel</div>
-        <h1 class="section-title mb-6">Wawasan & <span class="text-gold-gradient">Inspirasi</span></h1>
+        <div class="section-label mb-4">${t('blog.heroLabel')}</div>
+        <h1 class="section-title mb-6">${t('blog.heroTitleLine1')} <span class="text-gold-gradient">${t('blog.heroTitleHighlight')}</span></h1>
         <div class="gold-line mb-8"></div>
-        <p class="text-white/60 font-poppins text-sm leading-8 max-w-2xl">
-          Tips, edukasi, dan inspirasi seputar dunia konstruksi, arsitektur, dan manajemen proyek
-          dari tim PT. Delapan Sisi Utama.
-        </p>
+        <p class="text-white/60 font-poppins text-sm leading-8 max-w-2xl">${t('blog.heroDesc')}</p>
       </div>
     </section>
   `;

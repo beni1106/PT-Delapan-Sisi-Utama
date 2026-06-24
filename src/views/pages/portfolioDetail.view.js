@@ -1,40 +1,14 @@
 /**
- * portfolioDetail.view.js
- * VIEW LAYER — Menyusun halaman detail satu proyek portofolio.
- *
- * Layout mengikuti referensi desain (gaya listing properti modern):
- *   - Breadcrumb
- *   - Image carousel (badge status, counter, panah nav, label kategori foto, dots)
- *   - Sidebar kontak: agent, harga, tombol WhatsApp + telepon
- *   - Info utama: kategori, judul, harga
- *   - Specifications: grid 4 kotak (kamar tidur, kamar mandi, luas tanah, luas bangunan)
- *   - Property Description
- *   - Location: alamat teks + tombol buka di Google Maps (tanpa embed)
- *
- * DATA PLACEHOLDER:
- *   portfolio.model.js saat ini belum punya field spesifikasi (luas,
- *   kamar, harga, dst). Sesuai arahan, field yang kosong diisi data
- *   contoh yang masuk akal lewat getDisplayData() di bawah —
- *   deterministik per slug (proyek yang sama selalu dapat angka yang
- *   sama tiap reload, bukan acak tiap kali).
- *
- *   Begitu data asli tersedia, tambahkan field berikut langsung ke
- *   object project terkait di portfolio.model.js — view ini otomatis
- *   memakai data asli dan berhenti memakai placeholder:
- *     {
- *       propertyType: 'Ruko',
- *       priceLabel: 'Rp 750.000.000',
- *       bedrooms: 3,
- *       bathrooms: 2,
- *       landArea: 90,        // m²
- *       buildingArea: 120,   // m²
- *       description: 'Deskripsi proyek...',
- *       status: 'Selesai',   // badge carousel: SELESAI / RENOVASI / dst
- *       photoLabels: ['Eksterior', 'Interior', 'Denah'], // 1 per foto gallery
- *     }
+ * portfolioDetail.view.js — VIEW LAYER
+ * PERUBAHAN (i18n): teks statis (breadcrumb, carousel, spec labels,
+ * sidebar, location) memakai t(). Field dari portfolio.model.js
+ * (project.title/location, display.propertyType/status/description)
+ * belum bisa ikut toggle bahasa sampai model tersebut diubah jadi
+ * { id, en } (model belum di-upload).
  */
 
-/** Hash sederhana dari string slug → angka, supaya placeholder konsisten per proyek */
+import { t } from '../../models/i18n.model.js';
+
 function hashSlug(slug) {
   let hash = 0;
   for (let i = 0; i < slug.length; i += 1) {
@@ -43,15 +17,14 @@ function hashSlug(slug) {
   return hash;
 }
 
-/** Generate data spesifikasi placeholder yang masuk akal, deterministik per slug */
 function getDisplayData(project) {
   const h = hashSlug(project.slug);
 
-  const bedrooms = project.bedrooms ?? (2 + (h % 4)); // 2-5
-  const bathrooms = project.bathrooms ?? (1 + (h % 3)); // 1-3
-  const landArea = project.landArea ?? (80 + (h % 12) * 15); // 80-245
+  const bedrooms = project.bedrooms ?? (2 + (h % 4));
+  const bathrooms = project.bathrooms ?? (1 + (h % 3));
+  const landArea = project.landArea ?? (80 + (h % 12) * 15);
   const buildingArea = project.buildingArea ?? (Math.round(landArea * 1.1));
-  const priceBase = 450 + (h % 9) * 75; // 450-1050 (juta)
+  const priceBase = 450 + (h % 9) * 75;
   const priceLabel = project.priceLabel ?? `Rp ${priceBase}.000.000`;
   const propertyType = project.propertyType ?? 'Bangunan Komersial';
   const status = project.status ?? 'Selesai Dikerjakan';
@@ -64,11 +37,11 @@ function getDisplayData(project) {
 function renderBreadcrumb(project) {
   return `
     <div class="detail-breadcrumb-row mb-6">
-      <a href="/portfolio.html" class="back-link-pill">&larr; Kembali</a>
+      <a href="/portfolio.html" class="back-link-pill">${t('portfolioDetail.backLink')}</a>
       <div class="detail-breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="/index.html">${t('portfolioDetail.breadcrumbHome')}</a>
         <span>/</span>
-        <a href="/portfolio.html">Portofolio</a>
+        <a href="/portfolio.html">${t('portfolioDetail.breadcrumbPortfolio')}</a>
         <span>/</span>
         <span class="detail-breadcrumb-current">${project.title}</span>
       </div>
@@ -76,7 +49,6 @@ function renderBreadcrumb(project) {
   `;
 }
 
-/** Carousel gambar: badge status, counter, panah nav, label foto, dots */
 function renderCarousel(project, display) {
   const hasPhotos = (project.gallery && project.gallery.length > 0) || project.coverImage;
 
@@ -89,7 +61,7 @@ function renderCarousel(project, display) {
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/>
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 4 9-4M12 11v10"/>
           </svg>
-          <span>Dokumentasi Foto Segera Hadir</span>
+          <span>${t('portfolioDetail.photoSoonText')}</span>
         </div>
       </div>
     `;
@@ -98,7 +70,7 @@ function renderCarousel(project, display) {
   const photos = project.gallery && project.gallery.length > 0 ? project.gallery : [project.coverImage];
   const labels = project.photoLabels && project.photoLabels.length === photos.length
     ? project.photoLabels
-    : photos.map((_, i) => (i === 0 ? 'Tampak Depan' : `Foto ${i + 1}`));
+    : photos.map((_, i) => (i === 0 ? t('portfolioDetail.photoLabelFront') : `${t('portfolioDetail.photoLabelOther')} ${i + 1}`));
 
   const slides = photos
     .map(
@@ -110,9 +82,7 @@ function renderCarousel(project, display) {
     .join('');
 
   const dots = photos
-    .map(
-      (_, i) => `<button type="button" class="detail-carousel-dot ${i === 0 ? 'detail-carousel-dot--active' : ''}" data-dot-index="${i}" aria-label="Foto ${i + 1}"></button>`
-    )
+    .map((_, i) => `<button type="button" class="detail-carousel-dot ${i === 0 ? 'detail-carousel-dot--active' : ''}" data-dot-index="${i}" aria-label="${t('portfolioDetail.photoLabelOther')} ${i + 1}"></button>`)
     .join('');
 
   return `
@@ -134,9 +104,8 @@ function renderCarousel(project, display) {
   `;
 }
 
-/** Sidebar: agent, harga, tombol WhatsApp + telepon */
 function renderContactSidebar(project, display, { companyInfo }) {
-  const waMessage = encodeURIComponent(`Halo, saya tertarik dengan proyek ${project.title}`);
+  const waMessage = encodeURIComponent(`${t('portfolioDetail.waMessage')} ${project.title}`);
 
   return `
     <div class="detail-sidebar" data-aos="fade-left">
@@ -148,13 +117,13 @@ function renderContactSidebar(project, display, { companyInfo }) {
             </svg>
           </div>
           <div>
-            <div class="agent-name">Tim ${project.title.split(' ')[0]}</div>
-            <div class="agent-role">PT. Delapan Sisi Utama</div>
+            <div class="agent-name">${t('portfolioDetail.agentTeamPrefix')} ${project.title.split(' ')[0]}</div>
+            <div class="agent-role">${t('portfolioDetail.agentRole')}</div>
           </div>
         </div>
 
         <div class="agent-price-block">
-          <div class="agent-price-label">Estimasi Nilai Proyek</div>
+          <div class="agent-price-label">${t('portfolioDetail.priceLabel')}</div>
           <div class="agent-price-value">${display.priceLabel}</div>
         </div>
 
@@ -162,7 +131,7 @@ function renderContactSidebar(project, display, { companyInfo }) {
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0012.05 0z"/>
           </svg>
-          Chat WhatsApp
+          ${t('portfolioDetail.chatBtn')}
         </a>
 
         <a href="tel:+${companyInfo.whatsapp}" class="btn-phone-outline">
@@ -172,21 +141,20 @@ function renderContactSidebar(project, display, { companyInfo }) {
           ${companyInfo.phone1}
         </a>
 
-        <div class="agent-note">Konsultasi gratis, tanpa komitmen</div>
+        <div class="agent-note">${t('portfolioDetail.note')}</div>
 
-        <a href="/portfolio.html" class="agent-other-link">Lihat Proyek Lainnya</a>
+        <a href="/portfolio.html" class="agent-other-link">${t('portfolioDetail.otherLink')}</a>
       </div>
     </div>
   `;
 }
 
-/** Grid spesifikasi: 4 kotak icon (bedrooms, bathrooms, land area, building area) */
 function renderSpecGrid(display) {
   const items = [
-    { icon: 'bed', value: `${display.bedrooms} BR`, label: 'Bedrooms' },
-    { icon: 'bath', value: `${display.bathrooms} BA`, label: 'Bathrooms' },
-    { icon: 'land', value: `${display.landArea} m²`, label: 'Land Area' },
-    { icon: 'building', value: `${display.buildingArea} m²`, label: 'Building Area' },
+    { icon: 'bed', value: `${display.bedrooms} BR`, label: t('portfolioDetail.specBedrooms') },
+    { icon: 'bath', value: `${display.bathrooms} BA`, label: t('portfolioDetail.specBathrooms') },
+    { icon: 'land', value: `${display.landArea} m²`, label: t('portfolioDetail.specLandArea') },
+    { icon: 'building', value: `${display.buildingArea} m²`, label: t('portfolioDetail.specBuildingArea') },
   ];
 
   const iconSvg = {
@@ -208,24 +176,23 @@ function renderSpecGrid(display) {
     .join('');
 
   return `
-    <div class="detail-section-label">Specifications</div>
+    <div class="detail-section-label">${t('portfolioDetail.specsLabel')}</div>
     <div class="spec-grid">${cards}</div>
   `;
 }
 
 function renderDescription(display) {
   return `
-    <div class="detail-section-label">Property Description</div>
+    <div class="detail-section-label">${t('portfolioDetail.descLabel')}</div>
     <p class="detail-description">${display.description}</p>
   `;
 }
 
-/** Lokasi: alamat teks + tombol buka Google Maps (tanpa embed peta) */
 function renderLocationSection(project, { companyInfo }) {
   const mapsQuery = encodeURIComponent(project.location || companyInfo.mapsEmbedQuery);
 
   return `
-    <div class="detail-section-label">Location</div>
+    <div class="detail-section-label">${t('portfolioDetail.locationLabel')}</div>
     <div class="location-box">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="location-box-icon">
         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -233,7 +200,7 @@ function renderLocationSection(project, { companyInfo }) {
       </svg>
       <div class="location-box-text">${project.location}</div>
       <a href="https://www.google.com/maps/search/?api=1&query=${mapsQuery}" target="_blank" rel="noopener" class="location-box-link">
-        Buka di Google Maps &rarr;
+        ${t('portfolioDetail.mapsLink')}
       </a>
     </div>
   `;
@@ -241,14 +208,11 @@ function renderLocationSection(project, { companyInfo }) {
 
 export function renderPortfolioDetailHero(project) {
   const display = getDisplayData(project);
-
   return `
     <section class="py-12 pt-28">
       <div class="max-w-6xl mx-auto px-6" data-aos="fade-up">
         ${renderBreadcrumb(project)}
-        <div class="detail-hero-grid">
-          ${renderCarousel(project, display)}
-        </div>
+        <div class="detail-hero-grid">${renderCarousel(project, display)}</div>
       </div>
     </section>
   `;
@@ -269,15 +233,10 @@ export function renderPortfolioDetailBody(project, { whatsapp, companyInfo }) {
             </div>
 
             <div class="detail-divider"></div>
-
             ${renderSpecGrid(display)}
-
             <div class="detail-divider"></div>
-
             ${renderDescription(display)}
-
             <div class="detail-divider"></div>
-
             ${renderLocationSection(project, { companyInfo })}
           </div>
 
@@ -292,12 +251,10 @@ export function renderPortfolioNotFound() {
   return `
     <section class="pt-40 pb-20">
       <div class="max-w-2xl mx-auto px-6 text-center" data-aos="fade-up">
-        <div class="section-label mb-4">404</div>
-        <h1 class="section-title mb-6">Proyek Tidak <span class="text-gold-gradient">Ditemukan</span></h1>
-        <p class="text-white/50 font-poppins text-sm leading-7 mb-10">
-          Proyek yang Anda cari mungkin telah dipindahkan atau belum tersedia.
-        </p>
-        <a href="/portfolio.html" class="btn-gold">Kembali ke Portofolio</a>
+        <div class="section-label mb-4">${t('portfolio.notFoundLabel')}</div>
+        <h1 class="section-title mb-6">${t('portfolio.notFoundTitleLine1')} <span class="text-gold-gradient">${t('portfolio.notFoundTitleHighlight')}</span></h1>
+        <p class="text-white/50 font-poppins text-sm leading-7 mb-10">${t('portfolio.notFoundDesc')}</p>
+        <a href="/portfolio.html" class="btn-gold">${t('portfolio.backBtn')}</a>
       </div>
     </section>
   `;

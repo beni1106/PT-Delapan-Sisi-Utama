@@ -1,9 +1,9 @@
 /**
- * services.model.js
- * MODEL LAYER — Data bidang usaha / layanan perusahaan.
- *
- * Path gambar mengacu ke /project/images/layanan/
- * sesuai nama file yang sudah ada di folder public/project/images/layanan/.
+ * services.model.js — MODEL LAYER
+ * PERUBAHAN (i18n): summary sekarang { id, en }.
+ * title (EN) + titleId (ID) DIBIARKAN seperti semula — bilingual permanen
+ * (sama seperti coreValues), bukan target toggle.
+ * items[] dibiarkan apa adanya (istilah teknis, sama di kedua bahasa).
  */
 
 export const services = [
@@ -12,7 +12,10 @@ export const services = [
     order: '01',
     title: 'Engineering Services',
     titleId: 'Layanan Engineering',
-    summary: 'Layanan rekayasa teknis komprehensif yang mencakup desain arsitektural, sipil, mekanikal, dan elektrikal — dari konsep awal hingga gambar kerja final yang siap pelaksanaan.',
+    summary: {
+      id: 'Layanan rekayasa teknis komprehensif yang mencakup desain arsitektural, sipil, mekanikal, dan elektrikal — dari konsep awal hingga gambar kerja final yang siap pelaksanaan.',
+      en: 'Comprehensive technical engineering services covering architectural, civil, mechanical, and electrical design — from initial concept to final, execution-ready working drawings.',
+    },
     icon: 'drafting-compass',
     image: '/project/images/layanan/engineeringservices.webp',
     items: [
@@ -31,7 +34,10 @@ export const services = [
     order: '02',
     title: 'Construction Services',
     titleId: 'Layanan Konstruksi',
-    summary: 'Pelaksanaan konstruksi bangunan dengan standar kualitas tinggi — dari gedung komersial, hunian, industri, hingga renovasi dan interior fit-out dengan presisi dan ketepatan waktu.',
+    summary: {
+      id: 'Pelaksanaan konstruksi bangunan dengan standar kualitas tinggi — dari gedung komersial, hunian, industri, hingga renovasi dan interior fit-out dengan presisi dan ketepatan waktu.',
+      en: 'High-quality building construction execution — from commercial, residential, and industrial buildings to renovation and interior fit-out, with precision and timeliness.',
+    },
     icon: 'building',
     image: '/project/images/layanan/ConstructionServices.webp',
     items: [
@@ -50,7 +56,10 @@ export const services = [
     order: '03',
     title: 'Property Development',
     titleId: 'Pengembangan Properti',
-    summary: 'Pengembangan properti residensial, komersial, dan mixed-use yang berorientasi pada nilai investasi jangka panjang dan kepuasan penghuni di setiap tahap pengerjaan.',
+    summary: {
+      id: 'Pengembangan properti residensial, komersial, dan mixed-use yang berorientasi pada nilai investasi jangka panjang dan kepuasan penghuni di setiap tahap pengerjaan.',
+      en: 'Residential, commercial, and mixed-use property development focused on long-term investment value and occupant satisfaction at every stage.',
+    },
     icon: 'home-modern',
     image: '/project/images/layanan/PropertyDevelopment.webp',
     items: [
@@ -69,7 +78,10 @@ export const services = [
     order: '04',
     title: 'Project Supervision',
     titleId: 'Pengawasan Proyek',
-    summary: 'Pengawasan dan manajemen proyek yang ketat untuk memastikan setiap tahap pelaksanaan berjalan sesuai spesifikasi teknis, jadwal yang disepakati, dan standar keselamatan kerja.',
+    summary: {
+      id: 'Pengawasan dan manajemen proyek yang ketat untuk memastikan setiap tahap pelaksanaan berjalan sesuai spesifikasi teknis, jadwal yang disepakati, dan standar keselamatan kerja.',
+      en: 'Strict project supervision and management to ensure every execution stage meets technical specifications, agreed schedules, and work safety standards.',
+    },
     icon: 'clipboard-check',
     image: '/project/images/layanan/ProjectSupervision.webp',
     items: [

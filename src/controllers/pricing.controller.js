@@ -1,12 +1,9 @@
 /**
- * pricing.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman Pricing (Harga).
- *
- * PERUBAHAN:
- * - Tambah document.body.classList.add('home-light') supaya pola
- *   background selang-seling putih/hitam aktif (section-dark = hitam,
- *   section biasa = putih).
+ * pricing.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; listener
+ * 'dsu:langchange' me-render ulang halaman saat bahasa diganti.
  */
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -19,7 +16,8 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderPricingHero, renderPricingGrid, renderPricingNotes, renderPricingCta } from '../views/pages/pricing.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
 
 function renderPage() {
   const app = document.querySelector('#app');
@@ -28,7 +26,7 @@ function renderPage() {
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'pricing', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'pricing', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${renderPricingHero()}
     ${renderPricingGrid(pricingPlans, { formatIDR })}
     ${renderPricingNotes(pricingNotes)}
@@ -38,12 +36,23 @@ function renderPage() {
   `;
 }
 
-export function initPricingPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileMenu();
   initMobileNavAccordion();
   initLangToggle();
   initScrollProgress();
+  initDropdownHover();
+}
+
+export function initPricingPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }

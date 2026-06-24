@@ -1,14 +1,15 @@
 /**
- * widgets.view.js
- * VIEW LAYER — Komponen kecil yang dipakai berulang di semua halaman:
- *   - Floating WhatsApp button
- *   - Scroll progress bar (elemen kosong, animasinya di controller/utils)
+ * widgets.view.js — VIEW LAYER
+ * Floating WhatsApp button + scroll progress bar.
+ * PERUBAHAN (i18n): default message memakai t('home.ctaWhatsappMsg').
  */
 
 import { renderIcon } from './icon.view.js';
+import { t } from '../../models/i18n.model.js';
 
-export function renderFloatingWhatsapp({ whatsapp, message = 'Halo, saya ingin konsultasi proyek' }) {
-  const encodedMessage = encodeURIComponent(message);
+export function renderFloatingWhatsapp({ whatsapp, message } = {}) {
+  const finalMessage = message ?? t('home.ctaWhatsappMsg');
+  const encodedMessage = encodeURIComponent(finalMessage);
   return `
     <a href="https://wa.me/${whatsapp}?text=${encodedMessage}" target="_blank" rel="noopener" class="float-wa" aria-label="Chat WhatsApp">
       ${renderIcon('whatsapp', 'w-6 h-6 text-white', true)}

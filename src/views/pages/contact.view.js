@@ -1,26 +1,20 @@
 /**
- * contact.view.js
- * VIEW LAYER — Menyusun seluruh section halaman Contact (Kontak).
- *
- * PERUBAHAN:
- * - Hero: teks (label, judul, garis gold, paragraf) dipusatkan (center)
- *   dan warna teks dipastikan putih (tidak ikut override .home-light).
+ * contact.view.js — VIEW LAYER
+ * PERUBAHAN (i18n): seluruh teks statis (hero, info, form, map) memakai t().
  */
 
 import { renderIcon } from '../components/icon.view.js';
+import { t } from '../../models/i18n.model.js';
 
 export function renderContactHero() {
   return `
     <section class="pt-32 pb-16 relative overflow-hidden services-hero-bg section-dark">
       <div class="absolute inset-0 opacity-5 services-hero-radial"></div>
       <div class="max-w-3xl mx-auto px-6 relative z-10 text-center" data-aos="fade-up">
-        <div class="section-label mb-4">Hubungi Kami</div>
-        <h1 class="section-title text-white mb-6">Mari <span class="text-gold-gradient">Berdiskusi</span></h1>
+        <div class="section-label mb-4">${t('contact.heroLabel')}</div>
+        <h1 class="section-title text-white mb-6">${t('contact.heroTitleLine1')} <span class="text-gold-gradient">${t('contact.heroTitleHighlight')}</span></h1>
         <div class="gold-line mx-auto mb-8"></div>
-        <p class="font-poppins text-sm leading-8 max-w-2xl mx-auto" style="color: rgba(255,255,255,0.7);">
-          Punya proyek yang ingin diwujudkan? Tim kami siap membantu, mulai dari konsultasi awal
-          hingga pelaksanaan penuh.
-        </p>
+        <p class="font-poppins text-sm leading-8 max-w-2xl mx-auto" style="color: rgba(255,255,255,0.7);">${t('contact.heroDesc')}</p>
       </div>
     </section>
   `;
@@ -32,19 +26,18 @@ export function renderContactInfoAndForm({ companyInfo }) {
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid lg:grid-cols-5 gap-10">
 
-          <!-- Contact info -->
           <div class="lg:col-span-2 space-y-4" data-aos="fade-right">
             <div class="contact-info-card">
               ${renderIcon('location', 'w-5 h-5 text-gold flex-shrink-0 mt-1')}
               <div>
-                <div class="contact-info-label">Alamat Kantor</div>
+                <div class="contact-info-label">${t('contact.addressLabel')}</div>
                 <div class="contact-info-value">${companyInfo.address}</div>
               </div>
             </div>
             <div class="contact-info-card">
               ${renderIcon('phone', 'w-5 h-5 text-gold flex-shrink-0 mt-1')}
               <div>
-                <div class="contact-info-label">Telepon</div>
+                <div class="contact-info-label">${t('contact.phoneLabel')}</div>
                 <div class="contact-info-value">
                   <a href="tel:${companyInfo.phone1.replace(/\s/g, '')}" class="hover:text-gold transition-colors">${companyInfo.phone1}</a>
                   <br />
@@ -55,7 +48,7 @@ export function renderContactInfoAndForm({ companyInfo }) {
             <div class="contact-info-card">
               ${renderIcon('mail', 'w-5 h-5 text-gold flex-shrink-0 mt-1')}
               <div>
-                <div class="contact-info-label">Email</div>
+                <div class="contact-info-label">${t('contact.emailLabel')}</div>
                 <div class="contact-info-value">
                   <a href="mailto:${companyInfo.email}" class="hover:text-gold transition-colors">${companyInfo.email}</a>
                 </div>
@@ -64,58 +57,57 @@ export function renderContactInfoAndForm({ companyInfo }) {
             <div class="contact-info-card">
               ${renderIcon('clock', 'w-5 h-5 text-gold flex-shrink-0 mt-1')}
               <div>
-                <div class="contact-info-label">Jam Operasional</div>
-                <div class="contact-info-value">Senin – Jumat: 08.00 – 17.00 WIB<br />Sabtu: 08.00 – 13.00 WIB</div>
+                <div class="contact-info-label">${t('contact.hoursLabel')}</div>
+                <div class="contact-info-value">${t('contact.hoursValue')}</div>
               </div>
             </div>
 
             <a href="https://wa.me/${companyInfo.whatsapp}" target="_blank" rel="noopener" class="btn-gold w-full justify-center mt-6">
-              ${renderIcon('whatsapp', 'w-5 h-5', true)} Chat via WhatsApp
+              ${renderIcon('whatsapp', 'w-5 h-5', true)} ${t('contact.waBtn')}
             </a>
           </div>
 
-          <!-- Form -->
           <div class="lg:col-span-3" data-aos="fade-left" data-aos-delay="150">
             <form id="contact-form" class="contact-form">
               <div class="grid sm:grid-cols-2 gap-5">
                 <div class="form-group">
-                  <label for="name" class="form-label">Nama Lengkap *</label>
-                  <input type="text" id="name" name="name" required class="form-input" placeholder="Nama Anda" />
+                  <label for="name" class="form-label">${t('contact.formNameLabel')}</label>
+                  <input type="text" id="name" name="name" required class="form-input" placeholder="${t('contact.formNamePlaceholder')}" />
                 </div>
                 <div class="form-group">
-                  <label for="phone" class="form-label">No. WhatsApp *</label>
-                  <input type="tel" id="phone" name="phone" required class="form-input" placeholder="08xx-xxxx-xxxx" />
+                  <label for="phone" class="form-label">${t('contact.formPhoneLabel')}</label>
+                  <input type="tel" id="phone" name="phone" required class="form-input" placeholder="${t('contact.formPhonePlaceholder')}" />
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="email@contoh.com" />
+                <label for="email" class="form-label">${t('contact.formEmailLabel')}</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="${t('contact.formEmailPlaceholder')}" />
               </div>
 
               <div class="form-group">
-                <label for="service" class="form-label">Layanan yang Dibutuhkan *</label>
+                <label for="service" class="form-label">${t('contact.formServiceLabel')}</label>
                 <select id="service" name="service" required class="form-input">
-                  <option value="" disabled selected>Pilih layanan</option>
-                  <option value="engineering">Engineering Services</option>
-                  <option value="construction">Construction Services</option>
-                  <option value="property">Property Development</option>
-                  <option value="supervision">Project Supervision</option>
-                  <option value="other">Lainnya</option>
+                  <option value="" disabled selected>${t('contact.formServicePlaceholder')}</option>
+                  <option value="engineering">${t('contact.svcEngineering')}</option>
+                  <option value="construction">${t('contact.svcConstruction')}</option>
+                  <option value="property">${t('contact.svcProperty')}</option>
+                  <option value="supervision">${t('contact.svcSupervision')}</option>
+                  <option value="other">${t('contact.svcOther')}</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="message" class="form-label">Detail Kebutuhan *</label>
-                <textarea id="message" name="message" required rows="5" class="form-input" placeholder="Ceritakan tentang proyek Anda..."></textarea>
+                <label for="message" class="form-label">${t('contact.formMessageLabel')}</label>
+                <textarea id="message" name="message" required rows="5" class="form-input" placeholder="${t('contact.formMessagePlaceholder')}"></textarea>
               </div>
 
               <button type="submit" class="btn-gold w-full justify-center">
-                Kirim Pesan ${renderIcon('arrow-right', 'w-4 h-4')}
+                ${t('contact.formSubmitBtn')} ${renderIcon('arrow-right', 'w-4 h-4')}
               </button>
 
               <p id="form-success" class="form-success" style="display:none;">
-                ${renderIcon('check', 'w-4 h-4 text-gold')} Pesan terkirim! Tim kami akan segera menghubungi Anda.
+                ${renderIcon('check', 'w-4 h-4 text-gold')} ${t('contact.formSuccess')}
               </p>
             </form>
           </div>
@@ -131,8 +123,8 @@ export function renderMapSection({ mapsEmbedQuery }) {
     <section class="py-16 bg-dark-section">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-10" data-aos="fade-up">
-          <div class="section-label mb-4">Lokasi Kami</div>
-          <h2 class="section-title">Temukan <span class="text-gold-gradient">Kantor Kami</span></h2>
+          <div class="section-label mb-4">${t('contact.mapLabel')}</div>
+          <h2 class="section-title">${t('contact.mapTitleLine1')} <span class="text-gold-gradient">${t('contact.mapTitleHighlight')}</span></h2>
         </div>
         <div class="map-frame-wrap" data-aos="fade-up" data-aos-delay="150">
           <iframe

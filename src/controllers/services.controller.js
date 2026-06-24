@@ -1,12 +1,9 @@
 /**
- * services.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman Services (Layanan).
- *
- * PERUBAHAN:
- * - Tambah document.body.classList.add('home-light') supaya pola
- *   background selang-seling putih/hitam aktif konsisten dengan
- *   halaman lain (Contact, Portfolio, Pricing).
+ * services.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; listener
+ * 'dsu:langchange' me-render ulang halaman saat bahasa diganti.
  */
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -19,7 +16,8 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderServicesHero, renderServiceDetailBlock, renderServicesCta } from '../views/pages/services.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
 
 function renderPage() {
   const app = document.querySelector('#app');
@@ -30,7 +28,7 @@ function renderPage() {
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'services', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'services', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${renderServicesHero()}
     ${serviceBlocks}
     ${renderServicesCta({ whatsapp: companyInfo.whatsapp })}
@@ -39,7 +37,6 @@ function renderPage() {
   `;
 }
 
-/** Jika URL punya hash (mis. /services.html#construction), scroll ke section itu setelah render */
 function scrollToHashIfPresent() {
   if (!window.location.hash) return;
   const target = document.querySelector(window.location.hash);
@@ -48,13 +45,24 @@ function scrollToHashIfPresent() {
   }
 }
 
-export function initServicesPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileMenu();
   initMobileNavAccordion();
   initLangToggle();
   initScrollProgress();
+  initDropdownHover();
+}
+
+export function initServicesPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
   scrollToHashIfPresent();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }

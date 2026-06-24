@@ -1,18 +1,14 @@
 /**
- * cards.view.js
- * VIEW LAYER — Kartu-kartu yang dipakai berulang di berbagai halaman.
- * Setiap fungsi menerima satu object data dan mengembalikan HTML string.
- *
- * PERUBAHAN:
- * - renderPortfolioCard: dibungkus <a> menuju portfolio-detail.html?slug=,
- *   sehingga klik foto proyek di grid Portfolio/Home langsung membuka
- *   halaman detail proyek tersebut.
- * - renderPortfolioCard: kontras teks overlay (judul & lokasi) dinaikkan
- *   agar lebih terlihat saat hover — judul putih solid (sudah benar
- *   sebelumnya), lokasi dinaikkan dari text-white/60 → text-white/85.
+ * cards.view.js — VIEW LAYER
+ * Kartu-kartu yang dipakai berulang di berbagai halaman.
+ * PERUBAHAN (i18n): teks statis memakai t(); field data model yang
+ * berbentuk { id, en } (service.summary, testimonial.quote/role,
+ * plan.name/description/features, post.title/excerpt/category)
+ * memakai pick().
  */
 
 import { renderIcon } from './icon.view.js';
+import { t, pick } from '../../models/i18n.model.js';
 
 /** Kartu layanan (dipakai di Home & Services) */
 export function renderServiceCard(service, { compact = false } = {}) {
@@ -21,9 +17,9 @@ export function renderServiceCard(service, { compact = false } = {}) {
       <div class="service-card p-6" data-aos="fade-up">
         <div class="icon-wrap mb-5">${renderIcon(service.icon, 'w-6 h-6 text-gold')}</div>
         <h3 class="font-montserrat font-700 text-white text-base mb-3">${service.title}</h3>
-        <p class="text-white/50 text-xs font-poppins leading-6 mb-5">${service.summary}</p>
+        <p class="text-white/50 text-xs font-poppins leading-6 mb-5">${pick(service.summary)}</p>
         <a href="/services.html#${service.id}" class="card-link">
-          Selengkapnya ${renderIcon('arrow-right', 'w-3 h-3')}
+          ${t('cards.serviceMore')} ${renderIcon('arrow-right', 'w-3 h-3')}
         </a>
       </div>
     `;
@@ -38,7 +34,7 @@ export function renderServiceCard(service, { compact = false } = {}) {
         <div class="section-label mb-3">${service.order}</div>
         <h2 class="section-title mb-4">${service.title}</h2>
         <div class="gold-line mb-6"></div>
-        <p class="text-white/60 font-poppins text-sm leading-8 mb-8">${service.summary}</p>
+        <p class="text-white/60 font-poppins text-sm leading-8 mb-8">${pick(service.summary)}</p>
         <div class="grid grid-cols-2 gap-3">
           ${service.items.map((item) => `<div class="sub-item">${item}</div>`).join('')}
         </div>
@@ -50,7 +46,7 @@ export function renderServiceCard(service, { compact = false } = {}) {
   `;
 }
 
-/** Kartu proyek portofolio — sekarang clickable menuju halaman detail proyek */
+/** Kartu proyek portofolio — clickable menuju halaman detail proyek */
 export function renderPortfolioCard(project) {
   const hasImage = Boolean(project.coverImage);
 
@@ -62,7 +58,7 @@ export function renderPortfolioCard(project) {
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/>
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 4 9-4M12 11v10"/>
         </svg>
-        <span class="portfolio-card-placeholder-text">Foto Segera Hadir</span>
+        <span class="portfolio-card-placeholder-text">${t('cards.photoSoon')}</span>
       </div>
     `;
 
@@ -78,7 +74,7 @@ export function renderPortfolioCard(project) {
   `;
 }
 
-/** Kartu nilai inti (8 pilar) */
+/** Kartu nilai inti (8 pilar) — title/subtitle bilingual permanen, tidak pakai pick() */
 export function renderValueCard(value) {
   return `
     <div class="text-center" data-aos="zoom-in">
@@ -96,12 +92,12 @@ export function renderTestimonialCard(testimonial) {
     <div class="swiper-slide">
       <div class="testimonial-card">
         <div class="stars mb-4">${stars}</div>
-        <p class="text-white/70 font-poppins text-sm leading-8 mb-6 italic">"${testimonial.quote}"</p>
+        <p class="text-white/70 font-poppins text-sm leading-8 mb-6 italic">"${pick(testimonial.quote)}"</p>
         <div class="flex items-center gap-4">
           <div class="avatar-circle">${testimonial.name.charAt(0)}</div>
           <div>
             <div class="font-montserrat font-600 text-white text-sm">${testimonial.name}</div>
-            <div class="text-white/40 text-xs font-poppins">${testimonial.role}</div>
+            <div class="text-white/40 text-xs font-poppins">${pick(testimonial.role)}</div>
           </div>
         </div>
       </div>
@@ -109,18 +105,16 @@ export function renderTestimonialCard(testimonial) {
   `;
 }
 
-/** Kartu paket harga */
+/** Kartu paket harga (versi generik — pricing.view.js punya versi inline sendiri) */
 export function renderPricingCard(plan, { formatIDR }) {
   const highlightClass = plan.highlighted ? 'pricing-card pricing-card--highlight' : 'pricing-card';
-  const badge = plan.highlighted
-    ? `<div class="pricing-badge">Paling Diminati</div>`
-    : '';
+  const badge = plan.highlighted ? `<div class="pricing-badge">${t('cards.pricingBadge')}</div>` : '';
 
   return `
     <div class="${highlightClass}" data-aos="fade-up">
       ${badge}
-      <h3 class="font-montserrat font-700 text-sm mb-2" style="color:#0a0a0a;">${plan.name}</h3>
-      <p class="text-xs font-poppins leading-6 mb-6" style="color:rgba(10,10,10,0.65);">${plan.description}</p>
+      <h3 class="font-montserrat font-700 text-sm mb-2" style="color:#0a0a0a;">${pick(plan.name)}</h3>
+      <p class="text-xs font-poppins leading-6 mb-6" style="color:rgba(10,10,10,0.65);">${pick(plan.description)}</p>
       <div class="mb-6">
         <span class="font-montserrat font-900 text-2xl" style="color:#0a0a0a;">${formatIDR(plan.startingPrice)}</span>
         <span class="text-xs font-poppins" style="color:rgba(10,10,10,0.55);">${plan.unit}</span>
@@ -131,12 +125,12 @@ export function renderPricingCard(plan, { formatIDR }) {
             (f) => `
           <li class="flex gap-2 items-start text-xs font-poppins" style="color:rgba(10,10,10,0.75);">
             <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="#0a0a0a" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-            <span>${f}</span>
+            <span>${pick(f)}</span>
           </li>`
           )
           .join('')}
       </ul>
-      <a href="/contact.html" class="btn-dark w-full justify-center">Konsultasi Paket Ini</a>
+      <a href="/contact.html" class="btn-dark w-full justify-center">${t('cards.pricingCta')}</a>
     </div>
   `;
 }
@@ -146,14 +140,14 @@ export function renderBlogCard(post, { formatDateID }) {
   return `
     <a href="/blog-detail.html?id=${post.id}" class="blog-card" data-aos="fade-up" rel="bookmark">
       <div class="blog-card-image">
-        <img src="${post.image}" alt="${post.title}" loading="lazy" />
-        <div class="blog-card-category">${post.category}</div>
+        <img src="${post.image}" alt="${pick(post.title)}" loading="lazy" />
+        <div class="blog-card-category">${pick(post.category)}</div>
       </div>
       <div class="blog-card-body">
-        <div class="text-white/40 text-xs font-poppins mb-3">${formatDateID(post.date)} · ${post.readTime} menit baca</div>
-        <h3 class="font-montserrat font-700 text-white text-base mb-3 leading-snug">${post.title}</h3>
-        <p class="text-white/50 text-xs font-poppins leading-6 mb-4">${post.excerpt}</p>
-        <span class="card-link">Baca Selengkapnya ${renderIcon('arrow-right', 'w-3 h-3')}</span>
+        <div class="text-white/40 text-xs font-poppins mb-3">${formatDateID(post.date)} · ${post.readTime} ${t('cards.blogReadTime')}</div>
+        <h3 class="font-montserrat font-700 text-white text-base mb-3 leading-snug">${pick(post.title)}</h3>
+        <p class="text-white/50 text-xs font-poppins leading-6 mb-4">${pick(post.excerpt)}</p>
+        <span class="card-link">${t('cards.blogReadMore')} ${renderIcon('arrow-right', 'w-3 h-3')}</span>
       </div>
     </a>
   `;

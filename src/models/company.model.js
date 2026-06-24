@@ -1,12 +1,8 @@
 /**
- * company.model.js
- * MODEL LAYER — Data murni tentang profil perusahaan.
- *
- * Aturan layer Model:
- *   - TIDAK boleh import dari views/ atau controllers/
- *   - TIDAK boleh menyentuh DOM (document, window, dst)
- *   - Hanya berisi data + fungsi getter sederhana
- *   - Ganti isi data di sini, seluruh halaman yang menampilkannya otomatis ikut berubah
+ * company.model.js — MODEL LAYER
+ * PERUBAHAN (i18n): whyChooseUs[].description, leadership[].role,
+ * leadership[].bio, missionList[], companyProfile.philosophy, stats[].label
+ * sekarang { id, en }. Gunakan pick() di layer View.
  */
 
 export const companyProfile = {
@@ -21,9 +17,14 @@ inovatif, dan berkelanjutan bagi setiap kebutuhan pelanggan.`,
     en: `PT Delapan Sisi Utama is an Engineering, Construction, Property Development, and Project Supervision
 company committed to delivering professional, innovative, and sustainable solutions for every client's needs.`,
   },
-  philosophy: `PT Delapan Sisi Utama didirikan atas keyakinan bahwa keberhasilan sebuah proyek dibangun melalui
+  philosophy: {
+    id: `PT Delapan Sisi Utama didirikan atas keyakinan bahwa keberhasilan sebuah proyek dibangun melalui
 kualitas pekerjaan yang unggul dan kepercayaan yang berkelanjutan. Nama Delapan Sisi Utama merepresentasikan
 delapan nilai inti yang menjadi landasan perusahaan dalam menjalankan setiap aktivitas bisnis dan proyek.`,
+    en: `PT Delapan Sisi Utama was founded on the belief that a project's success is built through superior
+workmanship and lasting trust. The name Delapan Sisi Utama (Eight Core Sides) represents eight core values
+that form the foundation of the company in running every business activity and project.`,
+  },
 };
 
 export const vision = {
@@ -32,17 +33,35 @@ export const vision = {
 };
 
 export const missionList = [
-  'Menyediakan layanan konstruksi dan engineering yang berkualitas tinggi.',
-  'Mengutamakan keselamatan kerja dalam setiap kegiatan operasional.',
-  'Mengembangkan sumber daya manusia yang kompeten dan berintegritas.',
-  'Memberikan solusi yang efektif dan efisien bagi pelanggan.',
-  'Membangun hubungan jangka panjang yang saling menguntungkan dengan seluruh pemangku kepentingan.',
-  'Mendukung pembangunan berkelanjutan melalui inovasi dan tata kelola yang baik.',
+  {
+    id: 'Menyediakan layanan konstruksi dan engineering yang berkualitas tinggi.',
+    en: 'Providing high-quality construction and engineering services.',
+  },
+  {
+    id: 'Mengutamakan keselamatan kerja dalam setiap kegiatan operasional.',
+    en: 'Prioritizing work safety in every operational activity.',
+  },
+  {
+    id: 'Mengembangkan sumber daya manusia yang kompeten dan berintegritas.',
+    en: 'Developing competent and high-integrity human resources.',
+  },
+  {
+    id: 'Memberikan solusi yang efektif dan efisien bagi pelanggan.',
+    en: 'Providing effective and efficient solutions for clients.',
+  },
+  {
+    id: 'Membangun hubungan jangka panjang yang saling menguntungkan dengan seluruh pemangku kepentingan.',
+    en: 'Building mutually beneficial long-term relationships with all stakeholders.',
+  },
+  {
+    id: 'Mendukung pembangunan berkelanjutan melalui inovasi dan tata kelola yang baik.',
+    en: 'Supporting sustainable development through innovation and good governance.',
+  },
 ];
 
 /**
- * Delapan Pilar Utama — sumber nama "Delapan Sisi Utama"
- * icon: nama icon (dipetakan ke SVG di views/components/icon.view.js)
+ * Delapan Pilar Utama. title (EN) + subtitle (ID) SENGAJA ditampilkan
+ * bersamaan secara permanen sebagai elemen desain bilingual.
  */
 export const coreValues = [
   { id: 1, key: 'integrity', title: 'Integrity', subtitle: 'Integritas', icon: 'shield-check' },
@@ -58,27 +77,36 @@ export const coreValues = [
 export const whyChooseUs = [
   {
     title: 'Professional Team',
-    description: 'Didukung tenaga profesional dan berpengalaman di bidang engineering dan konstruksi.',
+    description: {
+      id: 'Didukung tenaga profesional dan berpengalaman di bidang engineering dan konstruksi.',
+      en: 'Supported by professional and experienced personnel in engineering and construction.',
+    },
     icon: 'users',
   },
   {
     title: 'Integrated Services',
-    description: 'Menyediakan layanan terintegrasi dari perencanaan hingga pelaksanaan proyek.',
+    description: {
+      id: 'Menyediakan layanan terintegrasi dari perencanaan hingga pelaksanaan proyek.',
+      en: 'Providing integrated services from project planning to execution.',
+    },
     icon: 'layers',
   },
   {
     title: 'Quality Assurance',
-    description: 'Mengutamakan standar mutu dalam setiap pekerjaan.',
+    description: { id: 'Mengutamakan standar mutu dalam setiap pekerjaan.', en: 'Upholding quality standards in every job.' },
     icon: 'badge-check',
   },
   {
     title: 'Safety Commitment',
-    description: 'Menjadikan keselamatan kerja sebagai prioritas utama.',
+    description: { id: 'Menjadikan keselamatan kerja sebagai prioritas utama.', en: 'Making work safety a top priority.' },
     icon: 'shield',
   },
   {
     title: 'Customer Satisfaction',
-    description: 'Berorientasi pada kepuasan pelanggan dan hubungan jangka panjang.',
+    description: {
+      id: 'Berorientasi pada kepuasan pelanggan dan hubungan jangka panjang.',
+      en: 'Focused on customer satisfaction and long-term relationships.',
+    },
     icon: 'heart-handshake',
   },
 ];
@@ -86,15 +114,21 @@ export const whyChooseUs = [
 export const leadership = [
   {
     name: 'Said Muhammad',
-    role: 'Komisaris',
+    role: { id: 'Komisaris', en: 'Commissioner' },
     initials: 'SM',
-    bio: 'Memberikan arahan strategis dan pengawasan terhadap seluruh operasional perusahaan dengan visi yang jelas dan komitmen tinggi.',
+    bio: {
+      id: 'Memberikan arahan strategis dan pengawasan terhadap seluruh operasional perusahaan dengan visi yang jelas dan komitmen tinggi.',
+      en: 'Provides strategic direction and oversight of the company\u2019s overall operations with a clear vision and strong commitment.',
+    },
   },
   {
     name: 'Andri Casby',
-    role: 'Direktur',
+    role: { id: 'Direktur', en: 'Director' },
     initials: 'AC',
-    bio: 'Memimpin pelaksanaan proyek dengan standar profesional tertinggi, memastikan kualitas dan kepuasan klien di setiap langkah.',
+    bio: {
+      id: 'Memimpin pelaksanaan proyek dengan standar profesional tertinggi, memastikan kualitas dan kepuasan klien di setiap langkah.',
+      en: 'Leads project execution with the highest professional standards, ensuring quality and client satisfaction at every step.',
+    },
   },
 ];
 
@@ -110,8 +144,8 @@ export const companyInfo = {
 };
 
 export const stats = [
-  { value: 50, suffix: '+', label: 'Proyek Selesai' },
-  { value: 5, suffix: '+', label: 'Tahun Pengalaman' },
-  { value: 40, suffix: '+', label: 'Klien Puas' },
-  { value: 8, suffix: '', label: 'Nilai Inti' },
+  { value: 50, suffix: '+', label: { id: 'Proyek Selesai', en: 'Projects Completed' } },
+  { value: 5, suffix: '+', label: { id: 'Tahun Pengalaman', en: 'Years of Experience' } },
+  { value: 40, suffix: '+', label: { id: 'Klien Puas', en: 'Happy Clients' } },
+  { value: 8, suffix: '', label: { id: 'Nilai Inti', en: 'Core Values' } },
 ];

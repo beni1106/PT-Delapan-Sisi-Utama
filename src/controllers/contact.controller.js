@@ -1,16 +1,9 @@
 /**
- * contact.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman Contact, termasuk handle submit form.
- *
- * CATATAN INTEGRASI BACKEND:
- * Saat ini `handleFormSubmit` hanya mensimulasikan pengiriman (langsung redirect ke WhatsApp
- * dengan pesan terisi otomatis dari form). Untuk integrasi backend/API sungguhan nanti,
- * cukup ganti isi fungsi `handleFormSubmit` di bawah — struktur Model/View di atasnya
- * tidak perlu diubah.
- *
- * PERUBAHAN:
- * - Tambah document.body.classList.add('home-light') di renderPage() supaya
- *   skema warna terang + navbar hitam solid konsisten dengan seluruh halaman lain.
+ * contact.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; serviceLabels
+ * di buildWhatsappMessage() memakai t() supaya pesan WA terkirim sesuai
+ * bahasa aktif; listener 'dsu:langchange' me-render ulang halaman
+ * (form di-reset ulang sehingga handler submit dipasang kembali).
  */
 
 import AOS from 'aos';
@@ -24,7 +17,9 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderContactHero, renderContactInfoAndForm, renderMapSection } from '../views/pages/contact.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
+import { t } from '../models/i18n.model.js';
 
 function renderPage() {
   const app = document.querySelector('#app');
@@ -33,7 +28,7 @@ function renderPage() {
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'contact', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'contact', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${renderContactHero()}
     ${renderContactInfoAndForm({ companyInfo })}
     ${renderMapSection({ mapsEmbedQuery: companyInfo.mapsEmbedQuery })}
@@ -42,14 +37,13 @@ function renderPage() {
   `;
 }
 
-/** Susun pesan WhatsApp terstruktur dari isi form */
 function buildWhatsappMessage(formData) {
   const serviceLabels = {
-    engineering: 'Engineering Services',
-    construction: 'Construction Services',
-    property: 'Property Development',
-    supervision: 'Project Supervision',
-    other: 'Lainnya',
+    engineering: t('contact.svcEngineering'),
+    construction: t('contact.svcConstruction'),
+    property: t('contact.svcProperty'),
+    supervision: t('contact.svcSupervision'),
+    other: t('contact.svcOther'),
   };
 
   const lines = [
@@ -87,13 +81,24 @@ function initContactForm() {
   form.addEventListener('submit', handleFormSubmit);
 }
 
-export function initContactPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileMenu();
   initMobileNavAccordion();
   initLangToggle();
   initScrollProgress();
+  initDropdownHover();
   initContactForm();
+}
+
+export function initContactPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }

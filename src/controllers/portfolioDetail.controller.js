@@ -1,14 +1,8 @@
 /**
- * portfolioDetail.controller.js
- * CONTROLLER LAYER — Orkestrasi halaman detail proyek portofolio.
- * Membaca query param `?slug=` untuk menentukan proyek mana yang ditampilkan.
- *
- * PERUBAHAN:
- * - companyInfo dipass ke renderPortfolioDetailBody (dibutuhkan untuk
- *   nomor telepon & query lokasi Google Maps di sidebar/section Location).
- * - Tambah initDetailCarousel(): logic navigasi gambar (tombol prev/next,
- *   dots, update counter & label foto), murni DOM manipulation — sesuai
- *   aturan layer Controller.
+ * portfolioDetail.controller.js — CONTROLLER LAYER
+ * PERUBAHAN (i18n): initLang() + getLang() dipass ke navbar; listener
+ * 'dsu:langchange' me-render ulang halaman + pasang ulang carousel
+ * (karena DOM carousel dibuat ulang dari nol saat re-render).
  */
 
 import AOS from 'aos';
@@ -23,7 +17,8 @@ import { renderFloatingWhatsapp, renderProgressBar } from '../views/components/w
 
 import { renderPortfolioDetailHero, renderPortfolioDetailBody, renderPortfolioNotFound } from '../views/pages/portfolioDetail.view.js';
 
-import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle } from '../utils/animations.js';
+import { initStickyNavbar, initMobileMenu, initScrollProgress, initMobileNavAccordion, initLangToggle, initDropdownHover } from '../utils/animations.js';
+import { initLang, getLang } from '../utils/language.js';
 
 function getSlugFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -51,14 +46,13 @@ function renderPage() {
 
   app.innerHTML = `
     ${renderProgressBar()}
-    ${renderNavbar({ activePage: 'portfolio', whatsapp: companyInfo.whatsapp })}
+    ${renderNavbar({ activePage: 'portfolio', whatsapp: companyInfo.whatsapp, lang: getLang() })}
     ${bodyHtml}
     ${renderFooter({ companyInfo })}
     ${renderFloatingWhatsapp({ whatsapp: companyInfo.whatsapp })}
   `;
 }
 
-/** Navigasi carousel gambar: prev/next, klik dot, update counter & label */
 function initDetailCarousel() {
   const carousel = document.getElementById('detail-carousel');
   if (!carousel || !currentProject) return;
@@ -99,13 +93,24 @@ function initDetailCarousel() {
   dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 }
 
-export function initPortfolioDetailPage() {
-  renderPage();
-  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+function bindPageBehavior() {
   initStickyNavbar();
   initMobileNavAccordion();
   initLangToggle();
   initMobileMenu();
   initScrollProgress();
+  initDropdownHover();
   initDetailCarousel();
+}
+
+export function initPortfolioDetailPage() {
+  initLang();
+  renderPage();
+  AOS.init({ duration: 700, once: true, easing: 'ease-out-quad', offset: 80 });
+  bindPageBehavior();
+
+  window.addEventListener('dsu:langchange', () => {
+    renderPage();
+    bindPageBehavior();
+  });
 }
