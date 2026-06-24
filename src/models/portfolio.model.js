@@ -483,3 +483,10 @@ export function getFeaturedProjects() {
 export function getProjectBySlug(slug) {
   return portfolioProjects.find((p) => p.slug === slug) ?? null;
 }
+
+export function withBase(path) {
+  if (!path) return null;
+  const base = import.meta.env.BASE_URL; // contoh: '/' atau '/subpath/'
+  const cleanPath = path.replace(/^\/+/, ''); // buang leading slash kalau ada
+  return `${base}${cleanPath}`;
+}
