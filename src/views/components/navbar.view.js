@@ -3,6 +3,8 @@
  * Navbar dengan dropdown multi-level, dipakai di semua halaman.
  * PERUBAHAN (i18n): getNavItems() (function, bukan const) + semua teks
  * statis memakai t() dari i18n.model.js.
+ * FIX: teks toggle bahasa (ID/EN) dan ikon hamburger dipaksa selalu putih,
+ * tidak lagi tergantung kondisi `lang` yang bisa tidak konsisten antar halaman.
  */
 
 import { renderIcon } from './icon.view.js';
@@ -152,12 +154,12 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
               ${renderIcon('user', 'w-4 h-4')}
             </a>
             <button type="button" class="nav-lang-toggle flex items-center gap-0 rounded border border-white/20 hover:border-gold/40 overflow-hidden transition-colors" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
-              <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'id' ? 'text-white' : 'text-white/35'}">
+              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5 text-white">
                 <img src="${B}project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
                 <span class="text-xs font-montserrat font-600 tracking-wide">ID</span>
               </span>
               <span class="w-px h-4 bg-white/20 flex-shrink-0"></span>
-              <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'en' ? 'text-white' : 'text-white/35'}">
+              <span class="nav-lang-option flex items-center gap-1.5 px-2.5 py-1.5 text-white">
                 <img src="${B}project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
                 <span class="text-xs font-montserrat font-600 tracking-wide">EN</span>
               </span>
@@ -167,7 +169,7 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
             </a>
           </div>
 
-          <button id="hamburger" class="lg:hidden text-white p-2" aria-label="Buka menu">
+          <button id="hamburger" type="button" class="hamburger-btn lg:hidden text-white p-2" aria-label="Buka menu">
             ${renderIcon('menu', 'w-6 h-6')}
           </button>
         </div>

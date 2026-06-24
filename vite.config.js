@@ -3,7 +3,6 @@ import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
 
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/PT-Delapan-Sisi-Utama/' : '/',
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
