@@ -8,74 +8,64 @@
 import { renderIcon } from './icon.view.js';
 import { t } from '../../models/i18n.model.js';
 
+const B = import.meta.env.BASE_URL;
+
 function getNavItems() {
   return [
     {
       key: 'portfolio',
       label: t('navbar.portfolio'),
-      href: '/portfolio.html',
+      href: `${B}portfolio.html`,
       children: [
-        { label: t('navbar.portfolioAll'), href: '/portfolio.html' },
-        { label: t('navbar.catKomersial'), href: '/portfolio.html?category=komersial-publik' },
-        { label: t('navbar.catPerumahan'), href: '/portfolio.html?category=perumahan' },
-        { label: t('navbar.catInterior'), href: '/portfolio.html?category=interior-rumah' },
-        { label: t('navbar.catIndustri'), href: '/portfolio.html?category=industri-infrastruktur' },
-        { label: t('navbar.catPengawasan'), href: '/portfolio.html?category=pengawasan-manajemen' },
-        { label: t('navbar.catEngineering'), href: '/portfolio.html?category=engineering-supervision' },
+        { label: t('navbar.portfolioAll'), href: `${B}portfolio.html` },
+        { label: t('navbar.catKomersial'), href: `${B}portfolio.html?category=komersial-publik` },
+        { label: t('navbar.catPerumahan'), href: `${B}portfolio.html?category=perumahan` },
+        { label: t('navbar.catInterior'), href: `${B}portfolio.html?category=interior-rumah` },
+        { label: t('navbar.catIndustri'), href: `${B}portfolio.html?category=industri-infrastruktur` },
+        { label: t('navbar.catPengawasan'), href: `${B}portfolio.html?category=pengawasan-manajemen` },
+        { label: t('navbar.catEngineering'), href: `${B}portfolio.html?category=engineering-supervision` },
       ],
     },
-    // vr-video dinonaktifkan sementara
-    // {
-    //   key: 'vr-video',
-    //   label: t('navbar.vrVideo'),
-    //   href: '/vr-video.html',
-    //   children: [
-    //     { label: t('navbar.vr360'), href: '/vr-video.html#vr' },
-    //     { label: t('navbar.video3d'), href: '/vr-video.html#video-3d' },
-    //     { label: t('navbar.videoKonstruksi'), href: '/vr-video.html#video-konstruksi' },
-    //     { label: t('navbar.videoProgress'), href: '/vr-video.html#video-progress' },
-    //   ],
-    // },
     {
       key: 'pricing',
       label: t('navbar.pricing'),
-      href: '/pricing.html',
+      href: `${B}pricing.html`,
       children: [
-        { label: t('navbar.jasaEngineering'), href: '/services.html#engineering' },
-        { label: t('navbar.jasaConstruction'), href: '/services.html#construction' },
-        { label: t('navbar.jasaProperty'), href: '/services.html#property' },
-        { label: t('navbar.jasaSupervision'), href: '/services.html#supervision' },
-        { label: t('navbar.benefit'), href: '/pricing.html#benefit' },
-        { label: t('navbar.testimoniClien'), href: '/pricing.html#testimoni' },
+        { label: t('navbar.jasaEngineering'), href: `${B}services.html#engineering` },
+        { label: t('navbar.jasaConstruction'), href: `${B}services.html#construction` },
+        { label: t('navbar.jasaProperty'), href: `${B}services.html#property` },
+        { label: t('navbar.jasaSupervision'), href: `${B}services.html#supervision` },
+        { label: t('navbar.benefit'), href: `${B}pricing.html#benefit` },
+        { label: t('navbar.testimoniClien'), href: `${B}pricing.html#testimoni` },
       ],
     },
     {
       key: 'about',
       label: t('navbar.about'),
-      href: '/about.html',
+      href: `${B}about.html`,
       children: [
-        { label: t('navbar.aboutProfil'),    href: '/about.html#profil' },
-        { label: t('navbar.aboutTim'),       href: '/about.html#tim' },
-        { label: t('navbar.aboutVisiMisi'),  href: '/about.html#visi-misi' },
-        { label: t('navbar.aboutPilar'),     href: '/about.html#pilar' },
-        { label: t('navbar.aboutCompanyInfo'), href: '/about.html#company-info' },
+        { label: t('navbar.aboutProfil'),      href: `${B}about.html#profil` },
+        { label: t('navbar.aboutTim'),         href: `${B}about.html#tim` },
+        { label: t('navbar.aboutVisiMisi'),    href: `${B}about.html#visi-misi` },
+        { label: t('navbar.aboutPilar'),       href: `${B}about.html#pilar` },
+        { label: t('navbar.aboutCompanyInfo'), href: `${B}about.html#company-info` },
       ],
     },
     {
       key: 'info',
       label: t('navbar.info'),
-      href: '/blog.html',
+      href: `${B}blog.html`,
       children: [
-        { label: t('navbar.faq'),     href: '/faq.html' },
-        { label: t('navbar.istilah'), href: '/blog.html?cat=istilah' },
-        { label: t('navbar.blog'),    href: '/blog.html' },
-        { label: t('navbar.karir'),   href: '/karir.html' },
+        { label: t('navbar.faq'),     href: `${B}faq.html` },
+        { label: t('navbar.istilah'), href: `${B}blog.html?cat=istilah` },
+        { label: t('navbar.blog'),    href: `${B}blog.html` },
+        { label: t('navbar.karir'),   href: `${B}karir.html` },
       ],
     },
     {
       key: 'contact',
       label: t('navbar.contact'),
-      href: '/contact.html',
+      href: `${B}contact.html`,
       children: null,
     },
   ];
@@ -135,16 +125,15 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
   const NAV_ITEMS = getNavItems();
   const desktopItems = NAV_ITEMS.map((item) => renderDesktopItem(item, activePage)).join('');
   const mobileItems = NAV_ITEMS.map((item) => renderMobileItem(item, activePage)).join('');
-  const langLabel = lang === 'id' ? 'EN' : 'ID';
 
   return `
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 navbar">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between h-20">
 
-          <a href="index.html" class="flex items-center flex-shrink-0">
+          <a href="${B}index.html" class="flex items-center flex-shrink-0">
             <img
-              src="project/images/logo-dsu.png"
+              src="${B}project/images/logo-dsu.png"
               alt="PT. Delapan Sisi Utama"
               class="h-14 w-auto object-contain"
               loading="eager"
@@ -152,32 +141,27 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
           </a>
 
           <div class="hidden lg:flex items-center gap-1" id="desktop-nav">
-            <a href="index.html" class="nav-home-icon" aria-label="${t('navbar.home')}">
+            <a href="${B}index.html" class="nav-home-icon" aria-label="${t('navbar.home')}">
               ${renderIcon('home', 'w-4 h-4')}
             </a>
             ${desktopItems}
           </div>
 
           <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
-            <!-- ✅ UPDATED: redirect ke halaman login admin -->
-            <a href="admin-login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
+            <a href="${B}admin-login.html" class="nav-icon-btn" aria-label="${t('navbar.login')}">
               ${renderIcon('user', 'w-4 h-4')}
             </a>
             <button type="button" class="nav-lang-toggle flex items-center gap-0 rounded border border-white/20 hover:border-gold/40 overflow-hidden transition-colors" data-lang="${lang}" aria-label="${t('navbar.changeLang')}">
               <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'id' ? 'text-white' : 'text-white/35'}">
-                <img src="project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
+                <img src="${B}project/images/flag/indo.png" alt="ID" class="w-5 h-3.5 object-cover rounded-sm" />
                 <span class="text-xs font-montserrat font-600 tracking-wide">ID</span>
               </span>
               <span class="w-px h-4 bg-white/20 flex-shrink-0"></span>
               <span class="flex items-center gap-1.5 px-2.5 py-1.5 ${lang === 'en' ? 'text-white' : 'text-white/35'}">
-                <img src="project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
+                <img src="${B}project/images/flag/united-kingdom.png" alt="EN" class="w-5 h-3.5 object-cover rounded-sm" />
                 <span class="text-xs font-montserrat font-600 tracking-wide">EN</span>
               </span>
             </button>
-            <!-- search dinonaktifkan sementara -->
-            <!-- <button type="button" class="nav-icon-btn" aria-label="${t('navbar.search')}" id="search-toggle">
-              ${renderIcon('search', 'w-4 h-4')}
-            </button> -->
             <a href="https://wa.me/${whatsapp}" target="_blank" rel="noopener" class="btn-gold text-xs py-3 px-6 ml-2">
               ${t('navbar.consult')}
             </a>
@@ -191,18 +175,17 @@ export function renderNavbar({ activePage = 'home', whatsapp = '', lang = 'id' }
 
       <div id="mobile-menu" class="mobile-menu">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
-          <a href="index.html" class="nav-link mobile-nav-link">
+          <a href="${B}index.html" class="nav-link mobile-nav-link">
             ${renderIcon('home', 'w-4 h-4')} ${t('navbar.home')}
           </a>
           ${mobileItems}
 
           <div class="mobile-nav-utility">
-            <!-- ✅ UPDATED: redirect ke halaman login admin -->
-            <a href="admin-login.html" class="nav-utility-link">${t('navbar.login')}</a>
+            <a href="${B}admin-login.html" class="nav-utility-link">${t('navbar.login')}</a>
             <button type="button" class="nav-utility-link nav-lang-toggle flex items-center gap-2" data-lang="${lang}">
               ${lang === 'id'
-                ? `<img src="project/images/flag/united-kingdom.png" alt="EN" class="w-6 h-4 object-cover rounded-sm" /> Switch to English`
-                : `<img src="project/images/flag/indo.png" alt="ID" class="w-6 h-4 object-cover rounded-sm" /> Ganti ke Indonesia`
+                ? `<img src="${B}project/images/flag/united-kingdom.png" alt="EN" class="w-6 h-4 object-cover rounded-sm" /> Switch to English`
+                : `<img src="${B}project/images/flag/indo.png" alt="ID" class="w-6 h-4 object-cover rounded-sm" /> Ganti ke Indonesia`
               }
             </button>
           </div>

@@ -7,6 +7,8 @@
 import { renderIcon } from './icon.view.js';
 import { t } from '../../models/i18n.model.js';
 
+const B = import.meta.env.BASE_URL;
+
 export function renderFooter({ companyInfo }) {
   return `
     <footer class="bg-dark-card border-t border-gold/10">
@@ -17,7 +19,7 @@ export function renderFooter({ companyInfo }) {
           <div class="lg:col-span-1 flex flex-col">
             <div class="flex items-center gap-3 mb-4">
               <img
-                src="project/images/logo-dsu.png"
+                src="${B}project/images/logo-dsu.png"
                 alt="PT. Delapan Sisi Utama"
                 class="h-10 w-auto object-contain flex-shrink-0"
                 loading="lazy"
@@ -43,13 +45,13 @@ export function renderFooter({ companyInfo }) {
           <div>
             <h4 class="footer-heading">${t('footer.navHeading')}</h4>
             <ul class="space-y-3">
-              <li><a href="index.html" class="footer-link">${t('navbar.home')}</a></li>
-              <li><a href="about.html" class="footer-link">${t('navbar.about')}</a></li>
-              <li><a href="services.html" class="footer-link">${t('navbar.services')}</a></li>
-              <li><a href="portfolio.html" class="footer-link">${t('navbar.portfolio')}</a></li>
-              <li><a href="pricing.html" class="footer-link">${t('navbar.pricing')}</a></li>
-              <li><a href="blog.html" class="footer-link">${t('navbar.blog')}</a></li>
-              <li><a href="contact.html" class="footer-link">${t('navbar.contact')}</a></li>
+              <li><a href="${B}index.html" class="footer-link">${t('navbar.home')}</a></li>
+              <li><a href="${B}about.html" class="footer-link">${t('navbar.about')}</a></li>
+              <li><a href="${B}services.html" class="footer-link">${t('navbar.services')}</a></li>
+              <li><a href="${B}portfolio.html" class="footer-link">${t('navbar.portfolio')}</a></li>
+              <li><a href="${B}pricing.html" class="footer-link">${t('navbar.pricing')}</a></li>
+              <li><a href="${B}blog.html" class="footer-link">${t('navbar.blog')}</a></li>
+              <li><a href="${B}contact.html" class="footer-link">${t('navbar.contact')}</a></li>
             </ul>
           </div>
 
@@ -57,10 +59,10 @@ export function renderFooter({ companyInfo }) {
           <div>
             <h4 class="footer-heading">${t('footer.serviceHeading')}</h4>
             <ul class="space-y-3">
-              <li><a href="services.html#engineering" class="footer-link">${t('navbar.jasaEngineering')}</a></li>
-              <li><a href="services.html#construction" class="footer-link">${t('navbar.jasaConstruction')}</a></li>
-              <li><a href="services.html#property" class="footer-link">${t('navbar.jasaProperty')}</a></li>
-              <li><a href="services.html#supervision" class="footer-link">${t('navbar.jasaSupervision')}</a></li>
+              <li><a href="${B}services.html#engineering" class="footer-link">${t('navbar.jasaEngineering')}</a></li>
+              <li><a href="${B}services.html#construction" class="footer-link">${t('navbar.jasaConstruction')}</a></li>
+              <li><a href="${B}services.html#property" class="footer-link">${t('navbar.jasaProperty')}</a></li>
+              <li><a href="${B}services.html#supervision" class="footer-link">${t('navbar.jasaSupervision')}</a></li>
             </ul>
           </div>
 
